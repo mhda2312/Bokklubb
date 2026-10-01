@@ -1,1234 +1,1407 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Boksekten</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --cream: #f3ede2;
-      --paper: #fffaf2;
-      --green: #263d35;
-      --green-light: #3f5a4e;
-      --burgundy: #713f46;
-      --gold: #c49a52;
-      --text: #302d29;
-      --muted: #81776d;
-      --line: #ded3c4;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--text);
-      font-family: "DM Sans", sans-serif;
-    }
-
-    /* TOPP */
-
-    header {
-      background: var(--green);
-      color: white;
-      text-align: center;
-      padding: 60px 20px 45px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: "✦";
-      display: block;
-      color: var(--gold);
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    header h1 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(55px, 9vw, 88px);
-      font-weight: 600;
-      letter-spacing: 2px;
-      margin: 0;
-      line-height: 0.9;
-    }
-
-    .ornament {
-      color: var(--gold);
-      margin: 18px auto 13px;
-      letter-spacing: 8px;
-      font-size: 14px;
-    }
-
-    header p {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-style: italic;
-      font-size: 21px;
-      color: #e6ddd0;
-      margin: 0;
-    }
-
-    /* MENY */
-
-    nav {
-      background: var(--paper);
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      padding: 14px;
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    nav button {
-      border: 0;
-      background: transparent;
-      padding: 11px 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-family: "DM Sans", sans-serif;
-      font-weight: 600;
-      color: var(--green);
-      font-size: 14px;
-    }
-
-    nav button.active {
-      background: var(--green);
-      color: white;
-    }
-
-    /* INNHOLD */
-
-    main {
-      width: 92%;
-      max-width: 950px;
-      margin: 38px auto 80px;
-    }
-
-    .tab {
-      display: none;
-    }
-
-    .tab.active {
-      display: block;
-    }
-
-    .section-title {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 38px;
-      color: var(--green);
-      margin: 0 0 20px;
-    }
-
-    .card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 35px rgba(52, 43, 33, 0.06);
-    }
-
-    .book-layout {
-      display: grid;
-      grid-template-columns: 230px 1fr;
-      gap: 35px;
-    }
-
-    h2, h3 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-    }
-
-    h2 {
-      font-size: 36px;
-      color: var(--green);
-    }
-
-    h3 {
-      font-size: 25px;
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      color: var(--green);
-      margin: 17px 0 7px;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: white;
-      font-family: "DM Sans", sans-serif;
-      font-size: 15px;
-      color: var(--text);
-    }
-
-    input:focus,
-    textarea:focus {
-      outline: 2px solid #9cae9f;
-      border-color: transparent;
-    }
-
-    textarea {
-      min-height: 95px;
-      resize: vertical;
-    }
-
-    .primary {
-      border: 0;
-      background: var(--green);
-      color: white;
-      border-radius: 9px;
-      padding: 12px 19px;
-      margin-top: 17px;
-      cursor: pointer;
-      font-family: "DM Sans", sans-serif;
-      font-weight: 600;
-    }
-
-    .primary:hover {
-      background: var(--green-light);
-    }
-
-    .secondary {
-      background: var(--burgundy);
-    }
-
-    /* BOKFORSIDE */
-
-    .cover {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-
-    .cover-placeholder {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      border: 1px dashed #b8aa98;
-      border-radius: 10px;
-      background: #e9e0d3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 20px;
-    }
-
-    .current-author {
-      color: var(--muted);
-      margin-top: -20px;
-      margin-bottom: 25px;
-    }
-
-    /* RATING */
-
-    .rating-area {
-      border-top: 1px solid var(--line);
-      margin-top: 30px;
-      padding-top: 25px;
-    }
-
-    .rating-area h3 {
-      margin-bottom: 5px;
-    }
-
-    .stars {
-      display: flex;
-      gap: 4px;
-      margin: 10px 0;
-    }
-
-    .star {
-      font-size: 38px;
-      color: #d4ccc1;
-      cursor: pointer;
-      transition: transform 0.1s;
-      user-select: none;
-    }
-
-    .star:hover {
-      transform: scale(1.1);
-    }
-
-    .star.on {
-      color: var(--gold);
-    }
-
-    .average {
-      background: #ebe4d8;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .average-number {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 35px;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .rating-list {
-      margin-top: 18px;
-    }
-
-    .rating-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--line);
-      padding: 12px 2px;
-    }
-
-    .rating-name {
-      font-weight: 600;
-    }
-
-    .small-stars {
-      color: var(--gold);
-      letter-spacing: 2px;
-    }
-
-    /* BOKØNSKER */
-
-    .wish {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .wish:last-child {
-      border-bottom: 0;
-    }
-
-    .wish-title {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 25px;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .wish-author {
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .suggested-by {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--burgundy);
-      text-transform: uppercase;
-      letter-spacing: .7px;
-    }
-
-    .wish-comment {
-      margin-bottom: 0;
-    }
-
-    .vote-button,
-    .delete-button {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 9px 11px;
-      border-radius: 8px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .vote-button {
-      color: var(--burgundy);
-      font-weight: 600;
-    }
-
-    .delete-button {
-      margin-left: 3px;
-      color: var(--muted);
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .empty {
-      color: var(--muted);
-      text-align: center;
-      padding: 25px 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 20px;
-      font-style: italic;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 20px 20px 45px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-    }
-
-    @media (max-width: 680px) {
-
-      header {
-        padding-top: 45px;
-      }
-
-      .book-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .cover-area {
-        width: 190px;
-        margin: auto;
-      }
-
-      nav {
-        overflow-x: auto;
-        justify-content: flex-start;
-      }
-
-      nav button {
-        white-space: nowrap;
-      }
-
-      .wish {
-        display: block;
-      }
-
-      .wish-actions {
-        margin-top: 15px;
-      }
-
-      .rating-entry {
-        gap: 10px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Boksekten</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Rye&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --cream:#f3ecdf;
+  --paper:#fffaf1;
+  --green:#243b32;
+  --green2:#385247;
+  --burgundy:#713f46;
+  --gold:#b68b4c;
+  --brown:#694d39;
+  --ink:#302c28;
+  --muted:#80746a;
+  --line:#ded1bf;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,255,255,.7),transparent 25%),
+    var(--cream);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+}
+
+/* HEADER */
+
+header{
+  background:var(--green);
+  color:white;
+  text-align:center;
+  padding:52px 20px 45px;
+  border-bottom:5px solid var(--gold);
+}
+
+.logo-ornament{
+  width:75px;
+  height:2px;
+  background:var(--gold);
+  margin:0 auto 20px;
+  position:relative;
+}
+
+.logo-ornament:before,
+.logo-ornament:after{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:var(--gold);
+  transform:rotate(45deg);
+  top:-3px;
+}
+
+.logo-ornament:before{left:-4px}
+.logo-ornament:after{right:-4px}
+
+header h1{
+  font-family:"Rye",Georgia,serif;
+  font-size:clamp(46px,9vw,78px);
+  font-weight:400;
+  letter-spacing:3px;
+  margin:0;
+}
+
+header p{
+  margin:15px 0 0;
+  color:#e9dfcf;
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-size:18px;
+}
+
+/* NAV */
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  padding:13px;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+nav button{
+  border:0;
+  background:transparent;
+  color:var(--green);
+  font-weight:600;
+  padding:11px 17px;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+nav button.active{
+  background:var(--green);
+  color:white;
+}
+
+main{
+  width:92%;
+  max-width:980px;
+  margin:35px auto 70px;
+}
+
+.tab{display:none}
+.tab.active{display:block}
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:27px;
+  margin-bottom:22px;
+  box-shadow:0 10px 30px rgba(60,45,30,.06);
+}
+
+h2,h3{
+  font-family:Georgia,serif;
+  color:var(--green);
+}
+
+h2{
+  font-size:34px;
+  margin-top:0;
+}
+
+h3{
+  font-size:23px;
+}
+
+.section-heading{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.section-heading h2{
+  margin:0;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+label{
+  display:block;
+  margin:16px 0 6px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--green);
+  font-weight:600;
+}
+
+input,textarea{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  font:inherit;
+  background:white;
+}
+
+textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+.primary{
+  margin-top:16px;
+  padding:12px 17px;
+  border:0;
+  border-radius:9px;
+  background:var(--green);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.primary:hover{
+  background:var(--green2);
+}
+
+.danger{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--burgundy);
+  border-radius:8px;
+  padding:8px 10px;
+  cursor:pointer;
+}
+
+/* EGNE IKONER */
+
+/* åpen bok */
+
+.book-icon{
+  width:47px;
+  height:34px;
+  position:relative;
+}
+
+.book-icon:before,
+.book-icon:after{
+  content:"";
+  position:absolute;
+  top:2px;
+  width:22px;
+  height:29px;
+  background:#f7edda;
+  border:2px solid var(--green);
+}
+
+.book-icon:before{
+  left:1px;
+  border-radius:5px 1px 1px 5px;
+  transform:skewY(7deg);
+}
+
+.book-icon:after{
+  right:1px;
+  border-radius:1px 5px 5px 1px;
+  transform:skewY(-7deg);
+}
+
+/* bøker på rekke */
+
+.books-icon{
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  width:55px;
+  height:40px;
+}
+
+.books-icon span{
+  display:block;
+  width:9px;
+  border-radius:2px 2px 0 0;
+  border:1px solid rgba(0,0,0,.2);
+}
+
+.books-icon span:nth-child(1){
+  height:29px;background:var(--burgundy);
+}
+.books-icon span:nth-child(2){
+  height:36px;background:var(--green2);
+}
+.books-icon span:nth-child(3){
+  height:25px;background:var(--gold);
+}
+.books-icon span:nth-child(4){
+  height:33px;background:var(--brown);
+}
+.books-icon span:nth-child(5){
+  height:28px;background:#8a6a55;
+}
+
+/* kalender */
+
+.calendar-icon{
+  width:42px;
+  height:38px;
+  border:2px solid var(--green);
+  border-radius:5px;
+  position:relative;
+  background:#f8efdf;
+}
+
+.calendar-icon:before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:8px;
+  border-top:5px solid var(--burgundy);
+}
+
+.calendar-icon:after{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  left:15px;
+  top:20px;
+}
+
+/* bibliotek */
+
+.library-icon{
+  display:flex;
+  gap:2px;
+  align-items:flex-end;
+  height:42px;
+  border-bottom:4px solid var(--brown);
+  padding:0 3px;
+}
+
+.library-icon span{
+  width:8px;
+  border:1px solid var(--brown);
+  background:#dfcba8;
+}
+
+.library-icon span:nth-child(1){height:27px}
+.library-icon span:nth-child(2){height:34px;background:#9c6c65}
+.library-icon span:nth-child(3){height:30px;background:#718276}
+.library-icon span:nth-child(4){height:36px;background:#d2ad70}
+.library-icon span:nth-child(5){height:25px;background:#84634c}
+
+/* NESTE MØTE */
+
+.next-meeting{
+  background:var(--green);
+  color:white;
+  border-radius:18px;
+  padding:25px 28px;
+  margin-bottom:28px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:22px;
+  align-items:center;
+  box-shadow:0 12px 30px rgba(36,59,50,.15);
+}
+
+.date-box{
+  background:var(--paper);
+  color:var(--green);
+  min-width:100px;
+  text-align:center;
+  padding:13px;
+  border-radius:12px;
+}
+
+.date-box .day{
+  font-family:Georgia,serif;
+  font-size:38px;
+  font-weight:bold;
+  line-height:1;
+}
+
+.date-box .month{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-top:5px;
+}
+
+.meeting-label{
+  text-transform:uppercase;
+  color:#d7b477;
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:600;
+}
+
+.next-meeting h2{
+  color:white;
+  margin:5px 0;
+  font-size:29px;
+}
+
+.next-meeting p{
+  margin:4px 0;
+  color:#eee4d6;
+}
+
+/* BOK */
+
+.book-layout{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:32px;
+}
+
+.cover{
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+  border-radius:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.cover-placeholder{
+  width:100%;
+  aspect-ratio:2/3;
+  background:#e6d9c7;
+  border:1px dashed #a99780;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-family:Georgia,serif;
+  color:var(--muted);
+}
+
+.rating-area{
+  margin-top:27px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.stars{
+  display:flex;
+  gap:5px;
+  margin:10px 0;
+}
+
+.star{
+  font-size:37px;
+  color:#d6cec2;
+  cursor:pointer;
+  line-height:1;
+}
+
+.star.on{
+  color:var(--gold);
+}
+
+.rating-row{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--line);
+  padding:11px 2px;
+}
+
+.small-stars{
+  color:var(--gold);
+  letter-spacing:2px;
+}
+
+.average{
+  margin-top:18px;
+  padding:13px;
+  background:#eee5d8;
+  border-radius:10px;
+}
+
+/* WISHES */
+
+.wish{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.wish-title{
+  font-family:Georgia,serif;
+  color:var(--green);
+  font-size:22px;
+  font-weight:bold;
+}
+
+.suggested{
+  color:var(--burgundy);
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.8px;
+  font-weight:bold;
+  margin-top:6px;
+}
+
+.wish-actions button{
+  border:1px solid var(--line);
+  background:white;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  margin-left:3px;
+}
+
+/* MØTER */
+
+.meeting{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:90px 1fr auto;
+  gap:18px;
+  align-items:center;
+}
+
+.meeting-date{
+  text-align:center;
+  border-right:1px solid var(--line);
+  padding-right:15px;
+}
+
+.meeting-date strong{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:28px;
+  color:var(--green);
+}
+
+.meeting-date span{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+}
+
+.meeting-info strong{
+  font-family:Georgia,serif;
+  font-size:19px;
+  color:var(--green);
+}
+
+.meeting-info p{
+  margin:4px 0;
+}
+
+/* HISTORIKK */
+
+.library-banner{
+  height:190px;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(to bottom,
+      #3b4e43 0 12%,
+      #6f4e38 12% 15%,
+      #b18a59 15% 18%,
+      #594332 18% 22%,
+      #33483e 22% 42%,
+      #6f4e38 42% 45%,
+      #b18a59 45% 48%,
+      #594332 48% 52%,
+      #40554a 52% 72%,
+      #6f4e38 72% 76%,
+      #b18a59 76% 79%,
+      #594332 79% 84%,
+      #2e3c35 84% 100%
+    );
+  margin-bottom:25px;
+}
+
+.library-banner:after{
+  content:"ARKIVET";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#f8e9ce;
+  font-family:"Rye",Georgia,serif;
+  font-size:36px;
+  letter-spacing:4px;
+  text-shadow:0 2px 8px #000;
+  background:rgba(20,25,20,.2);
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+  font-family:Georgia,serif;
+  font-style:italic;
+}
+
+footer{
+  text-align:center;
+  padding:25px 20px 45px;
+  color:var(--muted);
+  font-family:Georgia,serif;
+  font-style:italic;
+}
+
+@media(max-width:680px){
+
+  nav{
+    justify-content:flex-start;
+    overflow-x:auto;
+  }
+
+  nav button{
+    white-space:nowrap;
+  }
+
+  .book-layout{
+    grid-template-columns:1fr;
+  }
+
+  .cover-area{
+    max-width:190px;
+    margin:auto;
+  }
+
+  .next-meeting{
+    grid-template-columns:80px 1fr;
+  }
+
+  .date-box{
+    min-width:75px;
+  }
+
+  .meeting{
+    grid-template-columns:65px 1fr;
+  }
+
+  .meeting .danger{
+    grid-column:2;
+    justify-self:start;
+  }
+
+  .wish{
+    display:block;
+  }
+
+  .wish-actions{
+    margin-top:12px;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Boksekten</h1>
-  <div class="ornament">◆ ◆ ◆</div>
+  <div class="logo-ornament"></div>
+  <h1>BOKSEKTEN</h1>
   <p>Vi leser. Vi dømmer. Vi møtes igjen.</p>
 </header>
 
 <nav>
-  <button class="nav active" onclick="showTab('current', this)">
+  <button class="nav active" onclick="showTab('current',this)">
     Nå leser vi
   </button>
 
-  <button class="nav" onclick="showTab('wishes', this)">
+  <button class="nav" onclick="showTab('wishes',this)">
     Bokønsker
   </button>
 
-  <button class="nav" onclick="showTab('history', this)">
+  <button class="nav" onclick="showTab('meetings',this)">
+    Møter
+  </button>
+
+  <button class="nav" onclick="showTab('history',this)">
     Historikk
   </button>
 </nav>
 
 <main>
 
-  <!-- NÅ LESER VI -->
+<!-- NÅ LESER VI -->
 
-  <section id="current" class="tab active">
+<section id="current" class="tab active">
 
-    <div class="card book-layout">
+  <div id="nextMeetingHome"></div>
 
-      <div class="cover-area">
+  <div class="section-heading">
+    <div class="book-icon"></div>
+    <h2>Nå leser vi</h2>
+  </div>
 
-        <div id="coverPlaceholder" class="cover-placeholder">
-          Bokforside
-        </div>
+  <div class="card book-layout">
 
-        <img
-          id="coverImage"
-          class="cover"
-          alt="Bokforside"
-          style="display:none;"
-        >
+    <div class="cover-area">
 
-        <label for="coverUpload">Last opp bokforside</label>
-
-        <input
-          id="coverUpload"
-          type="file"
-          accept="image/*"
-        >
-
+      <div id="coverPlaceholder" class="cover-placeholder">
+        Bokforside
       </div>
 
-      <div>
+      <img id="coverImage" class="cover"
+           alt="Bokforside" style="display:none">
 
-        <h2 id="bookHeading">Hva leser vi?</h2>
-        <div id="authorHeading" class="current-author"></div>
-
-        <label for="bookTitle">Boktittel</label>
-        <input
-          id="bookTitle"
-          type="text"
-          placeholder="Boktittel"
-        >
-
-        <label for="bookAuthor">Forfatter</label>
-        <input
-          id="bookAuthor"
-          type="text"
-          placeholder="Forfatter"
-        >
-
-        <button class="primary" onclick="saveBook()">
-          Lagre månedens bok
-        </button>
-
-
-        <!-- VURDERINGER -->
-
-        <div class="rating-area">
-
-          <h3>Hva synes du om boka?</h3>
-
-          <p class="muted">
-            Skriv navnet ditt og gi boka 1–5 stjerner.
-          </p>
-
-          <label for="ratingName">Navnet ditt</label>
-
-          <input
-            id="ratingName"
-            type="text"
-            placeholder="F.eks. Maria"
-          >
-
-          <label>Din vurdering</label>
-
-          <div class="stars">
-            <span class="star" onclick="chooseRating(1)">★</span>
-            <span class="star" onclick="chooseRating(2)">★</span>
-            <span class="star" onclick="chooseRating(3)">★</span>
-            <span class="star" onclick="chooseRating(4)">★</span>
-            <span class="star" onclick="chooseRating(5)">★</span>
-          </div>
-
-          <button class="primary secondary" onclick="submitRating()">
-            Legg inn vurdering
-          </button>
-
-          <div id="averageBox" class="average" style="display:none;">
-            <div id="averageNumber" class="average-number">0</div>
-
-            <div>
-              <strong>Gjennomsnitt</strong>
-              <div id="averageText" class="muted"></div>
-            </div>
-          </div>
-
-          <div id="ratingList" class="rating-list"></div>
-
-        </div>
-
-      </div>
+      <label>Last opp bokforside</label>
+      <input id="coverUpload" type="file" accept="image/*">
 
     </div>
 
-  </section>
+    <div>
 
+      <h2 id="bookHeading">Hva leser vi?</h2>
+      <p id="authorHeading" class="muted"></p>
 
-  <!-- BOKØNSKER -->
+      <label>Boktittel</label>
+      <input id="bookTitle" placeholder="Boktittel">
 
-  <section id="wishes" class="tab">
+      <label>Forfatter</label>
+      <input id="bookAuthor" placeholder="Forfatter">
 
-    <h2 class="section-title">Bokønsker</h2>
-
-    <div class="card">
-
-      <h3>Legg en bok på sektens leseliste</h3>
-
-      <label for="wishName">Foreslått av</label>
-
-      <input
-        id="wishName"
-        type="text"
-        placeholder="Navnet ditt"
-      >
-
-      <label for="wishTitle">Boktittel</label>
-
-      <input
-        id="wishTitle"
-        type="text"
-        placeholder="Boktittel"
-      >
-
-      <label for="wishAuthor">Forfatter</label>
-
-      <input
-        id="wishAuthor"
-        type="text"
-        placeholder="Forfatter"
-      >
-
-      <label for="wishComment">
-        Hvorfor bør Boksekten lese den?
-      </label>
-
-      <textarea
-        id="wishComment"
-        placeholder="Overbevis resten av sekten..."
-      ></textarea>
-
-      <button class="primary" onclick="addWish()">
-        Legg til bokønske
+      <button class="primary" onclick="saveBook()">
+        Lagre månedens bok
       </button>
 
-    </div>
+      <div class="rating-area">
 
-    <div class="card">
+        <h3>Sektens dom</h3>
+        <p class="muted">Skriv navnet ditt og gi boka 1–5 stjerner.</p>
 
-      <h3>Sektens ønskeliste</h3>
+        <label>Navnet ditt</label>
+        <input id="ratingName" placeholder="Navn">
 
-      <div id="wishList"></div>
+        <label>Din vurdering</label>
 
-    </div>
+        <div class="stars">
+          <span class="star" onclick="chooseRating(1)">★</span>
+          <span class="star" onclick="chooseRating(2)">★</span>
+          <span class="star" onclick="chooseRating(3)">★</span>
+          <span class="star" onclick="chooseRating(4)">★</span>
+          <span class="star" onclick="chooseRating(5)">★</span>
+        </div>
 
-  </section>
+        <button class="primary" onclick="submitRating()">
+          Legg inn vurdering
+        </button>
 
+        <div id="averageBox" class="average" style="display:none"></div>
+        <div id="ratingList"></div>
 
-  <!-- HISTORIKK -->
-
-  <section id="history" class="tab">
-
-    <h2 class="section-title">Arkivet</h2>
-
-    <div class="card">
-
-      <h3>Bøker vi har lest</h3>
-
-      <div class="empty">
-        Arkivet er foreløpig tomt.
-        <br>
-        Her skal tidligere bøker få evig liv.
       </div>
 
     </div>
 
-  </section>
+  </div>
+</section>
+
+
+<!-- BOKØNSKER -->
+
+<section id="wishes" class="tab">
+
+  <div class="section-heading">
+    <div class="books-icon">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <h2>Bokønsker</h2>
+  </div>
+
+  <div class="card">
+
+    <h3>Legg en bok på sektens leseliste</h3>
+
+    <label>Foreslått av</label>
+    <input id="wishName" placeholder="Navnet ditt">
+
+    <label>Boktittel</label>
+    <input id="wishTitle" placeholder="Boktittel">
+
+    <label>Forfatter</label>
+    <input id="wishAuthor" placeholder="Forfatter">
+
+    <label>Hvorfor bør vi lese den?</label>
+    <textarea id="wishComment"
+      placeholder="Overbevis resten av sekten..."></textarea>
+
+    <button class="primary" onclick="addWish()">
+      Legg til bokønske
+    </button>
+
+  </div>
+
+  <div class="card">
+    <h3>Sektens ønskeliste</h3>
+    <div id="wishList"></div>
+  </div>
+
+</section>
+
+
+<!-- MØTER -->
+
+<section id="meetings" class="tab">
+
+  <div class="section-heading">
+    <div class="calendar-icon"></div>
+    <h2>Bokmøter</h2>
+  </div>
+
+  <div class="card">
+
+    <h3>Avtal et nytt møte</h3>
+
+    <label>Dato</label>
+    <input id="meetingDate" type="date">
+
+    <label>Klokkeslett</label>
+    <input id="meetingTime" type="time">
+
+    <label>Sted</label>
+    <input id="meetingPlace"
+      placeholder="F.eks. hos Maria">
+
+    <label>Kommentar</label>
+    <textarea id="meetingNote"
+      placeholder="Snacks, tema eller annen viktig info..."></textarea>
+
+    <button id="meetingSaveButton"
+            class="primary"
+            onclick="saveMeeting()">
+      Legg til møte
+    </button>
+
+    <button id="cancelEditButton"
+            class="danger"
+            style="display:none"
+            onclick="cancelMeetingEdit()">
+      Avbryt redigering
+    </button>
+
+  </div>
+
+  <div class="card">
+    <h3>Kommende møter</h3>
+    <div id="upcomingMeetings"></div>
+  </div>
+
+  <div class="card">
+    <h3>Tidligere møter</h3>
+    <div id="pastMeetings"></div>
+  </div>
+
+</section>
+
+
+<!-- HISTORIKK -->
+
+<section id="history" class="tab">
+
+  <div class="section-heading">
+    <div class="library-icon">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <h2>Historikk</h2>
+  </div>
+
+  <div class="library-banner"></div>
+
+  <div class="card">
+    <h3>Bøker vi har lest</h3>
+    <div class="empty">
+      Arkivet er foreløpig tomt.<br>
+      Her skal tidligere bøker få evig liv.
+    </div>
+  </div>
+
+</section>
 
 </main>
 
 <footer>
-  Boksekten · etablert for bøker, diskusjoner og sterke meninger
+  Boksekten · bøker, diskusjoner og sterke meninger
 </footer>
 
 
 <script>
 
-  /* -------------------------
-     FANER
-  ------------------------- */
+/* FANER */
 
-  function showTab(tabName, button) {
+function showTab(id,button){
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
 
-    document.querySelectorAll(".tab").forEach(function(tab) {
-      tab.classList.remove("active");
-    });
-
-    document.querySelectorAll(".nav").forEach(function(btn) {
-      btn.classList.remove("active");
-    });
-
-    document.getElementById(tabName).classList.add("active");
-
-    button.classList.add("active");
-  }
+  document.getElementById(id).classList.add("active");
+  button.classList.add("active");
+}
 
 
-  /* -------------------------
-     MÅNEDENS BOK
-  ------------------------- */
+/* BOK */
 
-  function saveBook() {
+function saveBook(){
 
-    const title =
-      document.getElementById("bookTitle").value.trim();
+  const book={
+    title:document.getElementById("bookTitle").value.trim(),
+    author:document.getElementById("bookAuthor").value.trim()
+  };
 
-    const author =
-      document.getElementById("bookAuthor").value.trim();
+  localStorage.setItem("boksekten-book",JSON.stringify(book));
+  updateBook();
+}
 
-    const book = {
-      title: title,
-      author: author
-    };
+function updateBook(){
 
-    localStorage.setItem(
-      "boksekten-current-book",
-      JSON.stringify(book)
-    );
+  const title=document.getElementById("bookTitle").value.trim();
+  const author=document.getElementById("bookAuthor").value.trim();
 
-    updateBookHeading();
-  }
+  document.getElementById("bookHeading").textContent=
+    title || "Hva leser vi?";
 
-
-  function updateBookHeading() {
-
-    const title =
-      document.getElementById("bookTitle").value.trim();
-
-    const author =
-      document.getElementById("bookAuthor").value.trim();
-
-    document.getElementById("bookHeading").textContent =
-      title || "Hva leser vi?";
-
-    document.getElementById("authorHeading").textContent =
-      author ? "av " + author : "";
-  }
+  document.getElementById("authorHeading").textContent=
+    author ? "av "+author : "";
+}
 
 
-  /* -------------------------
-     BOKFORSIDE
-  ------------------------- */
+/* COVER */
 
-  document
-    .getElementById("coverUpload")
-    .addEventListener("change", function(event) {
+document.getElementById("coverUpload").addEventListener("change",function(e){
 
-      const file = event.target.files[0];
+  const file=e.target.files[0];
+  if(!file)return;
 
-      if (!file) {
-        return;
-      }
+  const reader=new FileReader();
 
-      const reader = new FileReader();
+  reader.onload=function(x){
 
-      reader.onload = function(e) {
-
-        try {
-
-          localStorage.setItem(
-            "boksekten-cover",
-            e.target.result
-          );
-
-        } catch (error) {
-
-          alert(
-            "Bildet er for stort til å lagres. Prøv et mindre bilde."
-          );
-        }
-
-        displayCover(e.target.result);
-      };
-
-      reader.readAsDataURL(file);
-    });
-
-
-  function displayCover(image) {
-
-    const img =
-      document.getElementById("coverImage");
-
-    const placeholder =
-      document.getElementById("coverPlaceholder");
-
-    img.src = image;
-    img.style.display = "block";
-
-    placeholder.style.display = "none";
-  }
-
-
-  /* -------------------------
-     VURDERINGER
-  ------------------------- */
-
-  let selectedRating = 0;
-
-
-  function chooseRating(number) {
-
-    selectedRating = number;
-
-    const stars =
-      document.querySelectorAll(".star");
-
-    stars.forEach(function(star, index) {
-
-      if (index < number) {
-        star.classList.add("on");
-      } else {
-        star.classList.remove("on");
-      }
-
-    });
-  }
-
-
-  function getRatings() {
-
-    try {
-
-      return JSON.parse(
-        localStorage.getItem("boksekten-ratings")
-      ) || [];
-
-    } catch (error) {
-
-      return [];
-    }
-  }
-
-
-  function saveRatings(ratings) {
-
-    localStorage.setItem(
-      "boksekten-ratings",
-      JSON.stringify(ratings)
-    );
-  }
-
-
-  function submitRating() {
-
-    const name =
-      document.getElementById("ratingName").value.trim();
-
-    if (!name) {
-      alert("Skriv inn navnet ditt først.");
-      return;
+    try{
+      localStorage.setItem("boksekten-cover",x.target.result);
+    }catch(error){
+      alert("Bildet er for stort. Prøv et mindre bilde.");
     }
 
-    if (selectedRating === 0) {
-      alert("Velg antall stjerner først.");
-      return;
-    }
+    showCover(x.target.result);
+  };
 
-    const ratings = getRatings();
+  reader.readAsDataURL(file);
+});
 
-    const existing =
-      ratings.findIndex(function(rating) {
-        return rating.name.toLowerCase() === name.toLowerCase();
-      });
+function showCover(src){
+  const img=document.getElementById("coverImage");
+  img.src=src;
+  img.style.display="block";
+  document.getElementById("coverPlaceholder").style.display="none";
+}
 
-    if (existing >= 0) {
 
-      ratings[existing].stars = selectedRating;
+/* RATING */
 
-    } else {
+let selectedRating=0;
 
-      ratings.push({
-        name: name,
-        stars: selectedRating
-      });
-    }
+function chooseRating(n){
 
-    saveRatings(ratings);
+  selectedRating=n;
 
-    document.getElementById("ratingName").value = "";
+  document.querySelectorAll(".star").forEach((star,i)=>{
+    star.classList.toggle("on",i<n);
+  });
+}
 
-    selectedRating = 0;
+function getRatings(){
+  return JSON.parse(localStorage.getItem("boksekten-ratings")||"[]");
+}
 
-    chooseRating(0);
+function submitRating(){
 
-    renderRatings();
+  const name=document.getElementById("ratingName").value.trim();
+
+  if(!name){
+    alert("Skriv inn navnet ditt.");
+    return;
   }
 
+  if(!selectedRating){
+    alert("Velg antall stjerner.");
+    return;
+  }
 
-  function renderRatings() {
+  const ratings=getRatings();
 
-    const ratings = getRatings();
+  const existing=ratings.findIndex(
+    r=>r.name.toLowerCase()===name.toLowerCase()
+  );
 
-    const list =
-      document.getElementById("ratingList");
+  if(existing>=0){
+    ratings[existing].stars=selectedRating;
+  }else{
+    ratings.push({name:name,stars:selectedRating});
+  }
 
-    const averageBox =
-      document.getElementById("averageBox");
+  localStorage.setItem("boksekten-ratings",JSON.stringify(ratings));
 
-    list.innerHTML = "";
+  document.getElementById("ratingName").value="";
+  chooseRating(0);
 
-    if (ratings.length === 0) {
+  renderRatings();
+}
 
-      averageBox.style.display = "none";
+function renderRatings(){
 
-      list.innerHTML =
-        '<div class="empty">' +
-        'Ingen har vurdert boka ennå.' +
-        '</div>';
+  const ratings=getRatings();
+  const list=document.getElementById("ratingList");
+  const avg=document.getElementById("averageBox");
 
-      return;
+  list.innerHTML="";
+
+  if(!ratings.length){
+    avg.style.display="none";
+    list.innerHTML='<div class="empty">Ingen vurderinger ennå.</div>';
+    return;
+  }
+
+  const average=
+    ratings.reduce((sum,r)=>sum+r.stars,0)/ratings.length;
+
+  avg.style.display="block";
+  avg.innerHTML="<strong>"+average.toFixed(1).replace(".",",")+
+    " av 5</strong> · "+ratings.length+
+    (ratings.length===1?" vurdering":" vurderinger");
+
+  ratings.forEach(r=>{
+
+    const row=document.createElement("div");
+    row.className="rating-row";
+
+    const name=document.createElement("strong");
+    name.textContent=r.name;
+
+    const stars=document.createElement("span");
+    stars.className="small-stars";
+    stars.textContent="★".repeat(r.stars)+"☆".repeat(5-r.stars);
+
+    row.append(name,stars);
+    list.appendChild(row);
+  });
+}
+
+
+/* WISHES */
+
+function getWishes(){
+  return JSON.parse(localStorage.getItem("boksekten-wishes")||"[]");
+}
+
+function addWish(){
+
+  const name=document.getElementById("wishName").value.trim();
+  const title=document.getElementById("wishTitle").value.trim();
+
+  if(!name||!title){
+    alert("Skriv inn navn og boktittel.");
+    return;
+  }
+
+  const wishes=getWishes();
+
+  wishes.push({
+    name:name,
+    title:title,
+    author:document.getElementById("wishAuthor").value.trim(),
+    comment:document.getElementById("wishComment").value.trim(),
+    votes:0
+  });
+
+  localStorage.setItem("boksekten-wishes",JSON.stringify(wishes));
+
+  ["wishName","wishTitle","wishAuthor","wishComment"]
+    .forEach(id=>document.getElementById(id).value="");
+
+  renderWishes();
+}
+
+function voteWish(index){
+
+  const wishes=getWishes();
+  wishes[index].votes++;
+  localStorage.setItem("boksekten-wishes",JSON.stringify(wishes));
+  renderWishes();
+}
+
+function deleteWish(index){
+
+  const wishes=getWishes();
+  wishes.splice(index,1);
+  localStorage.setItem("boksekten-wishes",JSON.stringify(wishes));
+  renderWishes();
+}
+
+function renderWishes(){
+
+  const list=document.getElementById("wishList");
+  const wishes=getWishes();
+
+  list.innerHTML="";
+
+  if(!wishes.length){
+    list.innerHTML='<div class="empty">Ingen bokønsker ennå.</div>';
+    return;
+  }
+
+  wishes.forEach((w,i)=>{
+
+    const item=document.createElement("div");
+    item.className="wish";
+
+    const info=document.createElement("div");
+
+    const title=document.createElement("div");
+    title.className="wish-title";
+    title.textContent=w.title;
+
+    const author=document.createElement("div");
+    author.className="muted";
+    author.textContent=w.author || "Ukjent forfatter";
+
+    const suggested=document.createElement("div");
+    suggested.className="suggested";
+    suggested.textContent="Foreslått av "+w.name;
+
+    info.append(title,author,suggested);
+
+    if(w.comment){
+      const p=document.createElement("p");
+      p.textContent=w.comment;
+      info.appendChild(p);
     }
 
+    const actions=document.createElement("div");
+    actions.className="wish-actions";
 
-    let total = 0;
+    const vote=document.createElement("button");
+    vote.textContent="♥ "+w.votes;
+    vote.onclick=()=>voteWish(i);
 
-    ratings.forEach(function(rating) {
+    const del=document.createElement("button");
+    del.textContent="Slett";
+    del.onclick=()=>deleteWish(i);
 
-      total += rating.stars;
-
-      const row =
-        document.createElement("div");
-
-      row.className = "rating-entry";
-
-      const name =
-        document.createElement("span");
-
-      name.className = "rating-name";
-      name.textContent = rating.name;
-
-
-      const stars =
-        document.createElement("span");
-
-      stars.className = "small-stars";
-
-      stars.textContent =
-        "★".repeat(rating.stars) +
-        "☆".repeat(5 - rating.stars);
+    actions.append(vote,del);
+    item.append(info,actions);
+    list.appendChild(item);
+  });
+}
 
 
-      row.appendChild(name);
-      row.appendChild(stars);
+/* MØTER */
 
-      list.appendChild(row);
-    });
+let editingMeeting=null;
 
+function getMeetings(){
+  return JSON.parse(localStorage.getItem("boksekten-meetings")||"[]");
+}
 
-    const average =
-      total / ratings.length;
+function saveMeeting(){
 
-    averageBox.style.display = "flex";
+  const date=document.getElementById("meetingDate").value;
+  const time=document.getElementById("meetingTime").value;
+  const place=document.getElementById("meetingPlace").value.trim();
+  const note=document.getElementById("meetingNote").value.trim();
 
-    document.getElementById("averageNumber").textContent =
-      average.toFixed(1).replace(".", ",");
-
-    document.getElementById("averageText").textContent =
-      ratings.length +
-      (ratings.length === 1
-        ? " vurdering"
-        : " vurderinger");
+  if(!date){
+    alert("Velg dato for møtet.");
+    return;
   }
 
+  const meetings=getMeetings();
 
-  /* -------------------------
-     BOKØNSKER
-  ------------------------- */
+  const meeting={
+    date:date,
+    time:time,
+    place:place,
+    note:note
+  };
 
-  function getWishes() {
-
-    try {
-
-      return JSON.parse(
-        localStorage.getItem("boksekten-wishes")
-      ) || [];
-
-    } catch (error) {
-
-      return [];
-    }
+  if(editingMeeting===null){
+    meetings.push(meeting);
+  }else{
+    meetings[editingMeeting]=meeting;
   }
 
+  localStorage.setItem("boksekten-meetings",JSON.stringify(meetings));
 
-  function saveWishes(wishes) {
+  clearMeetingForm();
+  renderMeetings();
+}
 
-    localStorage.setItem(
-      "boksekten-wishes",
-      JSON.stringify(wishes)
-    );
+function editMeeting(index){
+
+  const meetings=getMeetings();
+  const m=meetings[index];
+
+  editingMeeting=index;
+
+  document.getElementById("meetingDate").value=m.date;
+  document.getElementById("meetingTime").value=m.time;
+  document.getElementById("meetingPlace").value=m.place;
+  document.getElementById("meetingNote").value=m.note;
+
+  document.getElementById("meetingSaveButton").textContent="Lagre endringer";
+  document.getElementById("cancelEditButton").style.display="inline-block";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function deleteMeeting(index){
+
+  if(!confirm("Vil du slette dette møtet?"))return;
+
+  const meetings=getMeetings();
+  meetings.splice(index,1);
+
+  localStorage.setItem("boksekten-meetings",JSON.stringify(meetings));
+
+  renderMeetings();
+}
+
+function cancelMeetingEdit(){
+  clearMeetingForm();
+}
+
+function clearMeetingForm(){
+
+  editingMeeting=null;
+
+  ["meetingDate","meetingTime","meetingPlace","meetingNote"]
+    .forEach(id=>document.getElementById(id).value="");
+
+  document.getElementById("meetingSaveButton").textContent="Legg til møte";
+  document.getElementById("cancelEditButton").style.display="none";
+}
+
+function meetingDateObject(m){
+
+  const time=m.time || "23:59";
+  return new Date(m.date+"T"+time);
+}
+
+function formatMeetingDate(dateString){
+
+  const date=new Date(dateString+"T12:00:00");
+
+  return date.toLocaleDateString("nb-NO",{
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  });
+}
+
+function makeMeetingRow(m,index){
+
+  const date=new Date(m.date+"T12:00:00");
+
+  const row=document.createElement("div");
+  row.className="meeting";
+
+  const d=document.createElement("div");
+  d.className="meeting-date";
+
+  d.innerHTML=
+    "<strong>"+date.getDate()+"</strong>"+
+    "<span>"+date.toLocaleDateString("nb-NO",{month:"short"})+"</span>";
+
+  const info=document.createElement("div");
+  info.className="meeting-info";
+
+  const title=document.createElement("strong");
+  title.textContent=formatMeetingDate(m.date);
+
+  const details=document.createElement("p");
+  details.textContent=
+    (m.time ? "Kl. "+m.time : "Tid ikke bestemt")+
+    (m.place ? " · "+m.place : "");
+
+  info.append(title,details);
+
+  if(m.note){
+    const note=document.createElement("p");
+    note.className="muted";
+    note.textContent=m.note;
+    info.appendChild(note);
   }
 
+  const actions=document.createElement("div");
 
-  function addWish() {
+  const edit=document.createElement("button");
+  edit.className="danger";
+  edit.textContent="Rediger";
+  edit.onclick=()=>editMeeting(index);
 
-    const name =
-      document.getElementById("wishName").value.trim();
+  const del=document.createElement("button");
+  del.className="danger";
+  del.textContent="Slett";
+  del.style.marginLeft="5px";
+  del.onclick=()=>deleteMeeting(index);
 
-    const title =
-      document.getElementById("wishTitle").value.trim();
+  actions.append(edit,del);
 
-    const author =
-      document.getElementById("wishAuthor").value.trim();
+  row.append(d,info,actions);
 
-    const comment =
-      document.getElementById("wishComment").value.trim();
+  return row;
+}
 
+function renderMeetings(){
 
-    if (!name) {
+  const meetings=getMeetings();
 
-      alert("Skriv inn navnet ditt først.");
+  const indexed=meetings.map((m,i)=>({meeting:m,index:i}));
 
-      return;
-    }
+  indexed.sort((a,b)=>
+    meetingDateObject(a.meeting)-meetingDateObject(b.meeting)
+  );
 
+  const now=new Date();
 
-    if (!title) {
+  const upcoming=indexed.filter(x=>meetingDateObject(x.meeting)>=now);
+  const past=indexed.filter(x=>meetingDateObject(x.meeting)<now).reverse();
 
-      alert("Skriv inn boktittelen først.");
+  const up=document.getElementById("upcomingMeetings");
+  const old=document.getElementById("pastMeetings");
 
-      return;
-    }
+  up.innerHTML="";
+  old.innerHTML="";
 
-
-    const wishes = getWishes();
-
-
-    wishes.push({
-
-      name: name,
-      title: title,
-      author: author,
-      comment: comment,
-      votes: 0
-
-    });
-
-
-    saveWishes(wishes);
-
-
-    document.getElementById("wishName").value = "";
-    document.getElementById("wishTitle").value = "";
-    document.getElementById("wishAuthor").value = "";
-    document.getElementById("wishComment").value = "";
-
-
-    renderWishes();
+  if(!upcoming.length){
+    up.innerHTML='<div class="empty">Ingen kommende møter er avtalt.</div>';
+  }else{
+    upcoming.forEach(x=>up.appendChild(makeMeetingRow(x.meeting,x.index)));
   }
 
-
-  function vote(index) {
-
-    const wishes = getWishes();
-
-    wishes[index].votes += 1;
-
-    saveWishes(wishes);
-
-    renderWishes();
+  if(!past.length){
+    old.innerHTML='<div class="empty">Ingen tidligere møter ennå.</div>';
+  }else{
+    past.forEach(x=>old.appendChild(makeMeetingRow(x.meeting,x.index)));
   }
 
+  renderNextMeeting(upcoming.length ? upcoming[0].meeting : null);
+}
 
-  function removeWish(index) {
+function renderNextMeeting(m){
 
-    const wishes = getWishes();
+  const area=document.getElementById("nextMeetingHome");
 
-    wishes.splice(index, 1);
-
-    saveWishes(wishes);
-
-    renderWishes();
+  if(!m){
+    area.innerHTML=
+      '<div class="card">'+
+      '<span class="meeting-label">Neste bokmøte</span>'+
+      '<h2>Ingen dato er satt ennå</h2>'+
+      '<p class="muted">Gå til Møter for å avtale neste samling.</p>'+
+      '</div>';
+    return;
   }
 
+  const date=new Date(m.date+"T12:00:00");
 
-  function renderWishes() {
+  const month=date.toLocaleDateString("nb-NO",{month:"short"});
 
-    const list =
-      document.getElementById("wishList");
+  area.innerHTML=
+    '<div class="next-meeting">'+
 
-    const wishes =
-      getWishes();
+      '<div class="date-box">'+
+        '<div class="day">'+date.getDate()+'</div>'+
+        '<div class="month">'+month+'</div>'+
+      '</div>'+
 
+      '<div>'+
+        '<div class="meeting-label">Neste bokmøte</div>'+
+        '<h2>'+formatMeetingDate(m.date)+'</h2>'+
+        '<p>'+
+          (m.time ? 'Kl. '+m.time : 'Tid ikke bestemt')+
+          (m.place ? ' · '+escapeHtml(m.place) : '')+
+        '</p>'+
+        (m.note ? '<p>'+escapeHtml(m.note)+'</p>' : '')+
+      '</div>'+
 
-    if (wishes.length === 0) {
-
-      list.innerHTML =
-        '<div class="empty">' +
-        'Ingen bokønsker ennå.<br>' +
-        'Noen må være den første.' +
-        '</div>';
-
-      return;
-    }
-
-
-    list.innerHTML = "";
-
-
-    wishes
-      .sort(function(a, b) {
-        return b.votes - a.votes;
-      })
-      .forEach(function(wish, index) {
-
-        const item =
-          document.createElement("div");
-
-        item.className = "wish";
+    '</div>';
+}
 
 
-        const info =
-          document.createElement("div");
+/* SIKKER TEKST */
+
+function escapeHtml(text){
+
+  const div=document.createElement("div");
+  div.textContent=text;
+  return div.innerHTML;
+}
 
 
-        const title =
-          document.createElement("div");
+/* LAST INN ALT */
 
-        title.className = "wish-title";
-        title.textContent = wish.title;
+function load(){
 
+  const book=JSON.parse(localStorage.getItem("boksekten-book")||"null");
 
-        const author =
-          document.createElement("div");
-
-        author.className = "wish-author";
-
-        author.textContent =
-          wish.author || "Ukjent forfatter";
-
-
-        const suggested =
-          document.createElement("div");
-
-        suggested.className = "suggested-by";
-
-        suggested.textContent =
-          "Foreslått av " + wish.name;
-
-
-        info.appendChild(title);
-        info.appendChild(author);
-        info.appendChild(suggested);
-
-
-        if (wish.comment) {
-
-          const comment =
-            document.createElement("p");
-
-          comment.className = "wish-comment";
-          comment.textContent = wish.comment;
-
-          info.appendChild(comment);
-        }
-
-
-        const actions =
-          document.createElement("div");
-
-        actions.className = "wish-actions";
-
-
-        const voteButton =
-          document.createElement("button");
-
-        voteButton.className = "vote-button";
-
-        voteButton.textContent =
-          "♥ " + wish.votes;
-
-        voteButton.onclick = function() {
-          vote(index);
-        };
-
-
-        const deleteButton =
-          document.createElement("button");
-
-        deleteButton.className = "delete-button";
-
-        deleteButton.textContent = "Slett";
-
-        deleteButton.onclick = function() {
-          removeWish(index);
-        };
-
-
-        actions.appendChild(voteButton);
-        actions.appendChild(deleteButton);
-
-
-        item.appendChild(info);
-        item.appendChild(actions);
-
-        list.appendChild(item);
-
-      });
+  if(book){
+    document.getElementById("bookTitle").value=book.title||"";
+    document.getElementById("bookAuthor").value=book.author||"";
+    updateBook();
   }
 
+  const cover=localStorage.getItem("boksekten-cover");
+  if(cover)showCover(cover);
 
-  /* -------------------------
-     LAST INN DATA
-  ------------------------- */
+  renderRatings();
+  renderWishes();
+  renderMeetings();
+}
 
-  function loadBoksekten() {
-
-    try {
-
-      const savedBook =
-        JSON.parse(
-          localStorage.getItem(
-            "boksekten-current-book"
-          )
-        );
-
-
-      if (savedBook) {
-
-        document.getElementById("bookTitle").value =
-          savedBook.title || "";
-
-        document.getElementById("bookAuthor").value =
-          savedBook.author || "";
-
-        updateBookHeading();
-      }
-
-    } catch (error) {
-
-      console.log("Kunne ikke laste boka.");
-    }
-
-
-    const savedCover =
-      localStorage.getItem("boksekten-cover");
-
-
-    if (savedCover) {
-      displayCover(savedCover);
-    }
-
-
-    renderRatings();
-
-    renderWishes();
-  }
-
-
-  loadBoksekten();
+load();
 
 </script>
 
