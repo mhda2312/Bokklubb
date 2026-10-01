@@ -3,21 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Vår Bokklubb 📚</title>
+  <title>Vår Bokklubb</title>
 
   <style>
-    :root {
-      --cream: #f7f1e7;
-      --paper: #fffdf8;
-      --brown: #5f4939;
-      --dark: #332b25;
-      --green: #71816d;
-      --green-light: #dce3d8;
-      --gold: #d9a441;
-      --border: #ded4c6;
-    }
-
     * {
       box-sizing: border-box;
     }
@@ -25,50 +13,50 @@
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: var(--cream);
-      color: var(--dark);
+      background: #f6f0e6;
+      color: #352f2a;
     }
 
     header {
       text-align: center;
-      padding: 45px 20px 30px;
+      padding: 45px 20px 25px;
     }
 
     header h1 {
-      margin: 0;
       font-size: 42px;
+      margin: 0 0 8px;
     }
 
     header p {
-      color: #74685e;
-      margin-top: 10px;
+      color: #756b62;
+      margin: 0;
     }
 
     nav {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      padding: 0 15px 30px;
+      gap: 10px;
       flex-wrap: wrap;
+      margin: 10px 0 30px;
     }
 
     nav button {
-      border: none;
-      padding: 12px 20px;
-      border-radius: 30px;
+      border: 0;
       background: transparent;
+      padding: 12px 20px;
+      border-radius: 25px;
       cursor: pointer;
-      font-size: 15px;
-      color: var(--brown);
+      font-size: 16px;
     }
 
     nav button.active {
-      background: var(--green);
+      background: #6f806b;
       color: white;
     }
 
     main {
-      width: min(950px, 92%);
+      width: 92%;
+      max-width: 900px;
       margin: auto;
       padding-bottom: 60px;
     }
@@ -82,36 +70,39 @@
     }
 
     .card {
-      background: var(--paper);
-      border: 1px solid var(--border);
+      background: #fffdf9;
+      border: 1px solid #ded5c8;
       border-radius: 20px;
       padding: 25px;
-      box-shadow: 0 8px 30px rgba(70, 55, 40, 0.06);
       margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
     }
 
-    .current-book {
+    .book-layout {
       display: grid;
       grid-template-columns: 220px 1fr;
-      gap: 35px;
-      align-items: start;
+      gap: 30px;
     }
 
     .cover {
       width: 100%;
       aspect-ratio: 2 / 3;
-      border-radius: 12px;
       object-fit: cover;
-      background: #e8e0d4;
-      border: 1px solid var(--border);
+      border-radius: 12px;
+      border: 1px solid #ddd3c5;
+      background: #e8e0d5;
     }
 
-    .placeholder {
+    .cover-placeholder {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 12px;
+      background: #e8e0d5;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       text-align: center;
-      color: #8b7d70;
+      color: #84776b;
       padding: 20px;
     }
 
@@ -121,24 +112,24 @@
     }
 
     h3 {
-      margin-bottom: 8px;
+      margin-top: 0;
     }
 
     label {
       display: block;
-      font-size: 14px;
-      margin: 15px 0 6px;
       font-weight: bold;
+      margin: 15px 0 6px;
     }
 
     input,
     textarea {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
+      padding: 12px;
+      border: 1px solid #d8cec1;
       border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
       background: white;
-      font: inherit;
     }
 
     textarea {
@@ -148,58 +139,57 @@
 
     .primary {
       margin-top: 16px;
-      padding: 12px 18px;
       border: 0;
       border-radius: 10px;
-      background: var(--green);
+      padding: 12px 18px;
+      background: #6f806b;
       color: white;
       cursor: pointer;
       font-size: 15px;
     }
 
-    .secondary {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      background: transparent;
-      border-radius: 8px;
-      cursor: pointer;
+    .primary:hover {
+      background: #5e705a;
+    }
+
+    .rating-box {
+      background: #e0e7dc;
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 25px;
     }
 
     .stars {
-      display: flex;
-      gap: 4px;
       margin: 8px 0;
     }
 
     .star {
-      font-size: 34px;
+      font-size: 36px;
+      color: #c9c0b5;
       cursor: pointer;
-      color: #cfc5b8;
       user-select: none;
     }
 
-    .star.selected {
-      color: var(--gold);
+    .star.on {
+      color: #d7a43e;
     }
 
-    .rating-box {
-      background: var(--green-light);
-      border-radius: 15px;
-      padding: 18px;
-      margin-top: 25px;
+    .muted {
+      color: #7d7167;
+      font-size: 14px;
     }
 
     .wish {
+      border-bottom: 1px solid #e0d7cb;
+      padding: 16px 0;
       display: flex;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
     }
 
     .wish:last-child {
-      border-bottom: 0;
+      border-bottom: none;
     }
 
     .wish-title {
@@ -207,42 +197,34 @@
       font-size: 18px;
     }
 
-    .muted {
-      color: #7e7267;
-      font-size: 14px;
+    .vote-button,
+    .delete-button {
+      border: 1px solid #d6ccbf;
+      background: white;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      margin: 2px;
     }
 
     .empty {
       text-align: center;
-      color: #8b7d70;
-      padding: 30px 10px;
-    }
-
-    .section-heading {
-      margin-bottom: 20px;
-    }
-
-    .history-book {
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .history-book:last-child {
-      border-bottom: 0;
+      color: #82766b;
+      padding: 25px;
     }
 
     @media (max-width: 650px) {
-      header h1 {
-        font-size: 34px;
-      }
-
-      .current-book {
+      .book-layout {
         grid-template-columns: 1fr;
       }
 
-      .cover-wrapper {
+      .cover-area {
         max-width: 210px;
         margin: auto;
+      }
+
+      header h1 {
+        font-size: 34px;
       }
     }
   </style>
@@ -250,502 +232,529 @@
 
 <body>
 
-<header>
-  <h1>📚 Vår Bokklubb</h1>
-  <p>Bøker er best når de deles.</p>
-</header>
+  <header>
+    <h1>📚 Vår Bokklubb</h1>
+    <p>Bøker er best når de deles.</p>
+  </header>
 
-<nav>
-  <button class="nav-button active" data-tab="current">
-    📖 Nå leser vi
-  </button>
+  <nav>
+    <button class="nav active" onclick="showTab('current', this)">
+      📖 Nå leser vi
+    </button>
 
-  <button class="nav-button" data-tab="wishes">
-    💭 Bokønsker
-  </button>
+    <button class="nav" onclick="showTab('wishes', this)">
+      💭 Bokønsker
+    </button>
 
-  <button class="nav-button" data-tab="history">
-    📚 Historikk
-  </button>
-</nav>
+    <button class="nav" onclick="showTab('history', this)">
+      📚 Historikk
+    </button>
+  </nav>
 
-<main>
+  <main>
 
-  <!-- NÅ LESER VI -->
+    <!-- NÅ LESER VI -->
 
-  <section id="current" class="tab active">
+    <section id="current" class="tab active">
+      <div class="card book-layout">
 
-    <div class="card current-book">
+        <div class="cover-area">
 
-      <div class="cover-wrapper">
+          <div id="coverPlaceholder" class="cover-placeholder">
+            📖<br>
+            Last opp bokforsiden
+          </div>
 
-        <div id="coverPlaceholder" class="cover placeholder">
-          Ingen bokforside ennå
+          <img
+            id="coverImage"
+            class="cover"
+            alt="Bokforside"
+            style="display:none;"
+          >
+
+          <label for="coverUpload">Bokforside</label>
+
+          <input
+            id="coverUpload"
+            type="file"
+            accept="image/*"
+          >
+
         </div>
 
-        <img id="coverImage" class="cover" style="display:none;" alt="Bokforside">
+        <div>
 
-        <label for="coverUpload">
-          Last opp bokforside
+          <h2 id="bookHeading">Hva leser vi?</h2>
+
+          <label for="bookTitle">Boktittel</label>
+          <input
+            id="bookTitle"
+            type="text"
+            placeholder="Skriv inn boktittel"
+          >
+
+          <label for="bookAuthor">Forfatter</label>
+          <input
+            id="bookAuthor"
+            type="text"
+            placeholder="Skriv inn forfatter"
+          >
+
+          <button class="primary" onclick="saveBook()">
+            Lagre bok
+          </button>
+
+          <div class="rating-box">
+
+            <h3>⭐ Hva synes du om boka?</h3>
+
+            <div id="stars" class="stars">
+              <span class="star" onclick="rateBook(1)">★</span>
+              <span class="star" onclick="rateBook(2)">★</span>
+              <span class="star" onclick="rateBook(3)">★</span>
+              <span class="star" onclick="rateBook(4)">★</span>
+              <span class="star" onclick="rateBook(5)">★</span>
+            </div>
+
+            <div id="ratingText" class="muted">
+              Ingen vurdering ennå.
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BOKØNSKER -->
+
+    <section id="wishes" class="tab">
+
+      <h2>💭 Bokønsker</h2>
+
+      <div class="card">
+
+        <h3>Foreslå en bok</h3>
+
+        <label for="wishTitle">Boktittel</label>
+        <input
+          id="wishTitle"
+          type="text"
+          placeholder="Hvilken bok ønsker du?"
+        >
+
+        <label for="wishAuthor">Forfatter</label>
+        <input
+          id="wishAuthor"
+          type="text"
+          placeholder="Forfatter"
+        >
+
+        <label for="wishComment">
+          Hvorfor bør vi lese den?
         </label>
 
-        <input id="coverUpload" type="file" accept="image/*">
+        <textarea
+          id="wishComment"
+          placeholder="Skriv en liten kommentar..."
+        ></textarea>
 
-      </div>
-
-      <div>
-
-        <h2 id="bookHeading">Hva leser vi?</h2>
-
-        <label for="bookTitle">Boktittel</label>
-        <input id="bookTitle" placeholder="For eksempel: Bienes historie">
-
-        <label for="bookAuthor">Forfatter</label>
-        <input id="bookAuthor" placeholder="Forfatterens navn">
-
-        <button class="primary" onclick="saveCurrentBook()">
-          Lagre bok
+        <button class="primary" onclick="addWish()">
+          + Legg til bokønske
         </button>
 
-        <div class="rating-box">
+      </div>
 
-          <h3>Hva synes du om boka?</h3>
+      <div class="card">
+        <h3>Ønskelisten vår</h3>
+        <div id="wishList"></div>
+      </div>
 
-          <div class="stars" id="stars">
-            <span class="star" data-value="1">★</span>
-            <span class="star" data-value="2">★</span>
-            <span class="star" data-value="3">★</span>
-            <span class="star" data-value="4">★</span>
-            <span class="star" data-value="5">★</span>
-          </div>
+    </section>
 
-          <div id="ratingText" class="muted">
-            Ingen vurdering ennå.
-          </div>
 
+    <!-- HISTORIKK -->
+
+    <section id="history" class="tab">
+
+      <h2>📚 Bøker vi har lest</h2>
+
+      <div class="card">
+
+        <p class="muted">
+          Her kan vi etter hvert samle alle bøkene bokklubben har lest.
+        </p>
+
+        <div class="empty">
+          Ingen bøker i historikken ennå.
         </div>
 
       </div>
 
-    </div>
+    </section>
 
-  </section>
-
-
-  <!-- BOKØNSKER -->
-
-  <section id="wishes" class="tab">
-
-    <div class="section-heading">
-      <h2>💭 Bokønsker</h2>
-      <p class="muted">
-        Legg inn bøker du har lyst til at bokklubben skal lese.
-      </p>
-    </div>
-
-    <div class="card">
-
-      <h3>Foreslå en bok</h3>
-
-      <label for="wishTitle">Boktittel</label>
-      <input id="wishTitle" placeholder="Boktittel">
-
-      <label for="wishAuthor">Forfatter</label>
-      <input id="wishAuthor" placeholder="Forfatter">
-
-      <label for="wishComment">Hvorfor bør vi lese den?</label>
-      <textarea
-        id="wishComment"
-        placeholder="Skriv en liten kommentar..."
-      ></textarea>
-
-      <button class="primary" onclick="addWish()">
-        + Legg til bokønske
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <h3>Ønskelisten vår</h3>
-
-      <div id="wishList"></div>
-
-    </div>
-
-  </section>
+  </main>
 
 
-  <!-- HISTORIKK -->
+  <script>
 
-  <section id="history" class="tab">
+    // FANER
 
-    <div class="section-heading">
-      <h2>📚 Bøker vi har lest</h2>
-      <p class="muted">
-        Etter hvert kan alle bøkene bokklubben har lest samles her.
-      </p>
-    </div>
+    function showTab(tabName, button) {
 
-    <div class="card">
+      document.querySelectorAll(".tab").forEach(function(tab) {
+        tab.classList.remove("active");
+      });
 
-      <div id="historyList" class="empty">
-        Ingen bøker i historikken ennå.
-      </div>
+      document.querySelectorAll(".nav").forEach(function(btn) {
+        btn.classList.remove("active");
+      });
 
-    </div>
-
-  </section>
-
-</main>
-
-
-<script>
-
-  // ---------------------------
-  // FANER
-  // ---------------------------
-
-  const navButtons = document.querySelectorAll(".nav-button");
-  const tabs = document.querySelectorAll(".tab");
-
-  navButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      navButtons.forEach(btn => btn.classList.remove("active"));
-      tabs.forEach(tab => tab.classList.remove("active"));
-
+      document.getElementById(tabName).classList.add("active");
       button.classList.add("active");
-
-      const tab = document.getElementById(button.dataset.tab);
-      tab.classList.add("active");
-
-    });
-
-  });
-
-
-  // ---------------------------
-  // NÅVÆRENDE BOK
-  // ---------------------------
-
-  const bookTitle = document.getElementById("bookTitle");
-  const bookAuthor = document.getElementById("bookAuthor");
-  const bookHeading = document.getElementById("bookHeading");
-
-  function saveCurrentBook() {
-
-    const book = {
-      title: bookTitle.value.trim(),
-      author: bookAuthor.value.trim()
-    };
-
-    localStorage.setItem("currentBook", JSON.stringify(book));
-
-    updateBookHeading();
-
-  }
-
-
-  function updateBookHeading() {
-
-    if (bookTitle.value.trim()) {
-      bookHeading.textContent = bookTitle.value;
-    } else {
-      bookHeading.textContent = "Hva leser vi?";
     }
 
-  }
 
+    // BOK
 
-  // ---------------------------
-  // BOKFORSIDE
-  // ---------------------------
+    function saveBook() {
 
-  const coverUpload = document.getElementById("coverUpload");
-  const coverImage = document.getElementById("coverImage");
-  const coverPlaceholder = document.getElementById("coverPlaceholder");
+      const title =
+        document.getElementById("bookTitle").value.trim();
 
-  coverUpload.addEventListener("change", function () {
+      const author =
+        document.getElementById("bookAuthor").value.trim();
 
-    const file = this.files[0];
+      const book = {
+        title: title,
+        author: author
+      };
 
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-
-      const image = event.target.result;
-
-      localStorage.setItem("bookCover", image);
-
-      showCover(image);
-
-    };
-
-    reader.readAsDataURL(file);
-
-  });
-
-
-  function showCover(image) {
-
-    coverImage.src = image;
-    coverImage.style.display = "block";
-    coverPlaceholder.style.display = "none";
-
-  }
-
-
-  // ---------------------------
-  // RATING
-  // ---------------------------
-
-  const stars = document.querySelectorAll(".star");
-  const ratingText = document.getElementById("ratingText");
-
-  let rating = Number(localStorage.getItem("bookRating")) || 0;
-
-  stars.forEach(star => {
-
-    star.addEventListener("click", () => {
-
-      rating = Number(star.dataset.value);
-
-      localStorage.setItem("bookRating", rating);
-
-      updateStars();
-
-    });
-
-  });
-
-
-  function updateStars() {
-
-    stars.forEach(star => {
-
-      const value = Number(star.dataset.value);
-
-      star.classList.toggle(
-        "selected",
-        value <= rating
+      localStorage.setItem(
+        "bookclub-current-book",
+        JSON.stringify(book)
       );
 
-    });
-
-    if (rating) {
-      ratingText.textContent =
-        "Din vurdering: " + rating + " av 5 stjerner";
-    } else {
-      ratingText.textContent =
-        "Ingen vurdering ennå.";
+      updateBook();
     }
 
-  }
 
+    function updateBook() {
 
-  // ---------------------------
-  // BOKØNSKER
-  // ---------------------------
+      const title =
+        document.getElementById("bookTitle").value.trim();
 
-  function getWishes() {
+      const heading =
+        document.getElementById("bookHeading");
 
-    return JSON.parse(
-      localStorage.getItem("bookWishes") || "[]"
-    );
-
-  }
-
-
-  function addWish() {
-
-    const title =
-      document.getElementById("wishTitle").value.trim();
-
-    const author =
-      document.getElementById("wishAuthor").value.trim();
-
-    const comment =
-      document.getElementById("wishComment").value.trim();
-
-    if (!title) {
-
-      alert("Skriv inn boktittel først.");
-
-      return;
-
+      heading.textContent =
+        title || "Hva leser vi?";
     }
 
-    const wishes = getWishes();
 
-    wishes.push({
-      title,
-      author,
-      comment,
-      votes: 0
-    });
+    // BOKFORSIDE
 
-    localStorage.setItem(
-      "bookWishes",
-      JSON.stringify(wishes)
-    );
+    document
+      .getElementById("coverUpload")
+      .addEventListener("change", function(event) {
 
-    document.getElementById("wishTitle").value = "";
-    document.getElementById("wishAuthor").value = "";
-    document.getElementById("wishComment").value = "";
+        const file = event.target.files[0];
 
-    renderWishes();
+        if (!file) {
+          return;
+        }
 
-  }
+        const reader = new FileReader();
 
+        reader.onload = function(e) {
 
-  function voteWish(index) {
-
-    const wishes = getWishes();
-
-    wishes[index].votes++;
-
-    localStorage.setItem(
-      "bookWishes",
-      JSON.stringify(wishes)
-    );
-
-    renderWishes();
-
-  }
-
-
-  function deleteWish(index) {
-
-    const wishes = getWishes();
-
-    wishes.splice(index, 1);
-
-    localStorage.setItem(
-      "bookWishes",
-      JSON.stringify(wishes)
-    );
-
-    renderWishes();
-
-  }
-
-
-  function renderWishes() {
-
-    const list = document.getElementById("wishList");
-
-    const wishes = getWishes();
-
-    if (!wishes.length) {
-
-      list.innerHTML =
-        '<div class="empty">Ingen bokønsker ennå. Legg inn den første!</div>';
-
-      return;
-
-    }
-
-    wishes.sort((a, b) => b.votes - a.votes);
-
-    list.innerHTML = "";
-
-    wishes.forEach((wish, index) => {
-
-      const item = document.createElement("div");
-
-      item.className = "wish";
-
-      item.innerHTML = `
-        <div>
-          <div class="wish-title">${escapeHTML(wish.title)}</div>
-
-          <div class="muted">
-            ${escapeHTML(wish.author || "Ukjent forfatter")}
-          </div>
-
-          ${
-            wish.comment
-              ? `<p>${escapeHTML(wish.comment)}</p>`
-              : ""
+          try {
+            localStorage.setItem(
+              "bookclub-cover",
+              e.target.result
+            );
+          } catch (error) {
+            alert(
+              "Bildet er litt for stort. Prøv gjerne et mindre bilde."
+            );
           }
-        </div>
 
-        <div>
-          <button
-            class="secondary"
-            onclick="voteWish(${index})"
-          >
-            ❤️ ${wish.votes}
-          </button>
+          displayCover(e.target.result);
+        };
 
-          <button
-            class="secondary"
-            onclick="deleteWish(${index})"
-          >
-            Slett
-          </button>
-        </div>
-      `;
-
-      list.appendChild(item);
-
-    });
-
-  }
+        reader.readAsDataURL(file);
+      });
 
 
-  // ---------------------------
-  // SIKKER TEKST
-  // ---------------------------
+    function displayCover(image) {
 
-  function escapeHTML(text) {
+      const img =
+        document.getElementById("coverImage");
 
-    const div = document.createElement("div");
+      const placeholder =
+        document.getElementById("coverPlaceholder");
 
-    div.textContent = text;
-
-    return div.innerHTML;
-
-  }
-
-
-  // ---------------------------
-  // LAST INN LAGREDE DATA
-  // ---------------------------
-
-  function loadData() {
-
-    const savedBook =
-      JSON.parse(localStorage.getItem("currentBook") || "{}");
-
-    bookTitle.value = savedBook.title || "";
-    bookAuthor.value = savedBook.author || "";
-
-    updateBookHeading();
-
-
-    const savedCover =
-      localStorage.getItem("bookCover");
-
-    if (savedCover) {
-      showCover(savedCover);
+      img.src = image;
+      img.style.display = "block";
+      placeholder.style.display = "none";
     }
 
 
-    updateStars();
+    // RATING
 
-    renderWishes();
+    let currentRating =
+      Number(
+        localStorage.getItem("bookclub-rating")
+      ) || 0;
 
-  }
+
+    function rateBook(number) {
+
+      currentRating = number;
+
+      localStorage.setItem(
+        "bookclub-rating",
+        number
+      );
+
+      displayRating();
+    }
 
 
-  loadData();
+    function displayRating() {
 
-</script>
+      const stars =
+        document.querySelectorAll(".star");
+
+      stars.forEach(function(star, index) {
+
+        if (index < currentRating) {
+          star.classList.add("on");
+        } else {
+          star.classList.remove("on");
+        }
+
+      });
+
+      const text =
+        document.getElementById("ratingText");
+
+      if (currentRating > 0) {
+        text.textContent =
+          "Din vurdering: " +
+          currentRating +
+          " av 5 stjerner";
+      } else {
+        text.textContent =
+          "Ingen vurdering ennå.";
+      }
+    }
+
+
+    // BOKØNSKER
+
+    function getWishes() {
+
+      try {
+        return JSON.parse(
+          localStorage.getItem("bookclub-wishes")
+        ) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+
+    function saveWishes(wishes) {
+
+      localStorage.setItem(
+        "bookclub-wishes",
+        JSON.stringify(wishes)
+      );
+    }
+
+
+    function addWish() {
+
+      const title =
+        document.getElementById("wishTitle").value.trim();
+
+      const author =
+        document.getElementById("wishAuthor").value.trim();
+
+      const comment =
+        document.getElementById("wishComment").value.trim();
+
+      if (!title) {
+        alert("Skriv inn en boktittel først.");
+        return;
+      }
+
+      const wishes = getWishes();
+
+      wishes.push({
+        title: title,
+        author: author,
+        comment: comment,
+        votes: 0
+      });
+
+      saveWishes(wishes);
+
+      document.getElementById("wishTitle").value = "";
+      document.getElementById("wishAuthor").value = "";
+      document.getElementById("wishComment").value = "";
+
+      renderWishes();
+    }
+
+
+    function vote(index) {
+
+      const wishes = getWishes();
+
+      wishes[index].votes += 1;
+
+      saveWishes(wishes);
+
+      renderWishes();
+    }
+
+
+    function removeWish(index) {
+
+      const wishes = getWishes();
+
+      wishes.splice(index, 1);
+
+      saveWishes(wishes);
+
+      renderWishes();
+    }
+
+
+    function safeText(text) {
+
+      const element =
+        document.createElement("div");
+
+      element.textContent = text;
+
+      return element.innerHTML;
+    }
+
+
+    function renderWishes() {
+
+      const list =
+        document.getElementById("wishList");
+
+      const wishes =
+        getWishes();
+
+      if (wishes.length === 0) {
+
+        list.innerHTML =
+          '<div class="empty">' +
+          'Ingen bokønsker ennå. ' +
+          'Legg inn den første!' +
+          '</div>';
+
+        return;
+      }
+
+      list.innerHTML = "";
+
+      wishes.forEach(function(wish, index) {
+
+        const item =
+          document.createElement("div");
+
+        item.className = "wish";
+
+        item.innerHTML =
+          '<div>' +
+            '<div class="wish-title">' +
+              safeText(wish.title) +
+            '</div>' +
+
+            '<div class="muted">' +
+              safeText(
+                wish.author || "Ukjent forfatter"
+              ) +
+            '</div>' +
+
+            (
+              wish.comment
+              ? '<p>' +
+                  safeText(wish.comment) +
+                '</p>'
+              : ''
+            ) +
+          '</div>' +
+
+          '<div>' +
+            '<button class="vote-button" ' +
+            'onclick="vote(' + index + ')">' +
+              '❤️ ' + wish.votes +
+            '</button>' +
+
+            '<button class="delete-button" ' +
+            'onclick="removeWish(' + index + ')">' +
+              'Slett' +
+            '</button>' +
+          '</div>';
+
+        list.appendChild(item);
+      });
+    }
+
+
+    // LAST INN LAGREDE DATA
+
+    function loadBookClub() {
+
+      try {
+
+        const savedBook =
+          JSON.parse(
+            localStorage.getItem(
+              "bookclub-current-book"
+            )
+          );
+
+        if (savedBook) {
+
+          document.getElementById("bookTitle").value =
+            savedBook.title || "";
+
+          document.getElementById("bookAuthor").value =
+            savedBook.author || "";
+
+          updateBook();
+        }
+
+      } catch (error) {
+        console.log("Kunne ikke laste bok.");
+      }
+
+
+      const savedCover =
+        localStorage.getItem("bookclub-cover");
+
+      if (savedCover) {
+        displayCover(savedCover);
+      }
+
+      displayRating();
+      renderWishes();
+    }
+
+
+    loadBookClub();
+
+  </script>
 
 </body>
 </html>
