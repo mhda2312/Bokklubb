@@ -1,77 +1,1393 @@
+
 <!DOCTYPE html>
 <html lang="no">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boksekten</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Rye&display=swap" rel="stylesheet">
+
 <style>
-:root{--cream:#f3ecdf;--paper:#fffaf1;--green:#243b32;--green2:#385247;--wine:#713f46;--gold:#b68b4c;--brown:#694d39;--ink:#302c28;--muted:#80746a;--line:#ded1bf}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 10%,#ffffffa0,transparent 27%),var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}header{background:var(--green);color:white;text-align:center;padding:50px 18px 43px;border-bottom:5px solid var(--gold)}.ornament{height:2px;width:82px;background:var(--gold);margin:0 auto 20px;position:relative}.ornament:before,.ornament:after{content:'';position:absolute;top:-3px;width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}.ornament:before{left:-4px}.ornament:after{right:-4px}header h1{font:400 clamp(40px,9vw,78px) 'Rye',Georgia,serif;letter-spacing:2px;margin:0}header p{font:italic 18px Georgia,serif;color:#e9dfcf;margin:14px 0 0}nav{display:flex;justify-content:center;gap:5px;padding:12px;background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;overflow-x:auto}nav button{border:0;background:transparent;color:var(--green);font-weight:700;padding:12px 17px;border-radius:30px;cursor:pointer;white-space:nowrap}nav button.active{background:var(--green);color:white}main{width:min(94%,980px);margin:34px auto 65px}.tab{display:none}.tab.active{display:block}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:22px;box-shadow:0 10px 28px #3c2d1e0d}h2,h3{font-family:Georgia,serif;color:var(--green)}h2{font-size:clamp(26px,4vw,35px);margin:0 0 15px}h3{font-size:23px;margin:0 0 15px}.section-heading{display:flex;align-items:center;gap:15px;margin:0 0 22px}.section-heading h2{margin:0}.muted,.hint{color:var(--muted)}.hint{font-size:13px;line-height:1.5}label{display:block;margin:16px 0 6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-weight:700}input,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:12px 13px;font:inherit;color:var(--ink)}textarea{min-height:94px;resize:vertical}button{font:inherit}.primary,.secondary,.danger{border-radius:9px;padding:11px 15px;cursor:pointer;font-weight:700}.primary{background:var(--green);color:white;border:1px solid var(--green)}.primary:hover{background:var(--green2)}.secondary{background:#f3e8d8;color:var(--green);border:1px solid var(--line)}.danger{background:transparent;color:var(--wine);border:1px solid var(--line)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.empty{padding:25px;text-align:center;color:var(--muted);font:italic 17px Georgia,serif}.book-icon{width:45px;height:33px;position:relative;flex-shrink:0}.book-icon:before,.book-icon:after{content:'';position:absolute;top:2px;width:22px;height:28px;background:#f7edda;border:2px solid var(--green)}.book-icon:before{left:0;border-radius:5px 1px 1px 5px;transform:skewY(7deg)}.book-icon:after{right:0;border-radius:1px 5px 5px 1px;transform:skewY(-7deg)}.books-icon,.library-icon{display:flex;gap:3px;align-items:flex-end;width:52px;height:39px;flex-shrink:0}.books-icon span,.library-icon span{width:9px;border:1px solid #614e3c;border-radius:2px 2px 0 0}.books-icon span:nth-child(1),.library-icon span:nth-child(1){height:27px;background:var(--wine)}.books-icon span:nth-child(2),.library-icon span:nth-child(2){height:36px;background:var(--green2)}.books-icon span:nth-child(3),.library-icon span:nth-child(3){height:30px;background:var(--gold)}.books-icon span:nth-child(4),.library-icon span:nth-child(4){height:34px;background:var(--brown)}.books-icon span:nth-child(5),.library-icon span:nth-child(5){height:25px;background:#9a7662}.library-icon{border-bottom:4px solid var(--brown)}.calendar-icon{width:42px;height:38px;border:2px solid var(--green);border-radius:5px;background:#f8efdf;position:relative;flex-shrink:0}.calendar-icon:before{content:'';position:absolute;top:8px;left:0;right:0;border-top:5px solid var(--wine)}.calendar-icon:after{content:'';position:absolute;top:20px;left:15px;width:8px;height:8px;border-radius:50%;background:var(--gold)}.next-meeting{background:var(--green);color:#fff;border-radius:18px;padding:25px;display:grid;grid-template-columns:90px 1fr;gap:22px;align-items:center;margin-bottom:27px}.next-meeting h2{color:#fff;font-size:27px;margin:5px 0}.next-meeting p{color:#e9dfcf;margin:5px 0;white-space:pre-wrap}.date-box{background:var(--paper);color:var(--green);padding:13px 6px;text-align:center;border-radius:12px}.date-box strong{display:block;font:700 39px Georgia,serif}.date-box span{font-size:12px;letter-spacing:1px;text-transform:uppercase}.eyebrow{color:#d8b97c;font-size:11px;text-transform:uppercase;letter-spacing:2px;font-weight:700}.book-layout{display:grid;grid-template-columns:210px 1fr;gap:30px}.cover{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:8px;box-shadow:0 8px 20px #0002}.cover-placeholder{width:100%;aspect-ratio:2/3;border:1px dashed #a99780;background:#e6d9c7;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font:italic 20px Georgia,serif;text-align:center}.book-title{font:700 32px Georgia,serif;color:var(--green);margin:0 0 5px}.rating-area{margin-top:26px;border-top:1px solid var(--line);padding-top:24px}.stars{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.star{border:0;background:transparent;color:#cfc4b6;font:normal 38px Georgia,serif;padding:0 2px;cursor:pointer;line-height:1.2}.star.selected{color:var(--gold)}.rating-summary{padding:17px;background:#eee5d8;border-radius:12px;margin:14px 0}.rating-summary strong{font:700 27px Georgia,serif;color:var(--green)}.gold-stars{color:var(--gold);letter-spacing:2px}.review{padding:17px 0;border-top:1px solid var(--line)}.review-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.review p{white-space:pre-wrap;line-height:1.6;margin:10px 0 0}.wish,.meeting,.history-book{padding:20px 0;border-bottom:1px solid var(--line)}.wish:first-child,.meeting:first-child,.history-book:first-child{padding-top:5px}.wish-title{font:700 23px Georgia,serif;color:var(--green)}.wish-top{display:flex;justify-content:space-between;align-items:start;gap:15px}.wish-comment{white-space:pre-wrap;line-height:1.5}.wish-meta{font-size:12px;color:var(--wine);margin:7px 0;text-transform:uppercase;letter-spacing:.5px;font-weight:700}.wish-rating{font-weight:700;color:var(--green);white-space:nowrap}.vote-panel{background:#f4ebdf;border-radius:12px;padding:15px;margin-top:15px}.vote-panel .stars .star{font-size:30px}.small-label{font-size:12px;color:var(--muted)}.meeting{display:grid;grid-template-columns:70px 1fr;gap:16px}.meeting-date{border-right:1px solid var(--line);text-align:center;padding-right:12px}.meeting-date strong{display:block;font:700 29px Georgia,serif;color:var(--green)}.meeting-date span{font-size:11px;text-transform:uppercase}.meeting-info strong{font:700 19px Georgia,serif;color:var(--green)}.meeting-info p{margin:5px 0;white-space:pre-wrap}.library-banner{height:175px;border-radius:14px;margin-bottom:22px;position:relative;overflow:hidden;background:repeating-linear-gradient(90deg,#5a4334 0 6px,#a47a56 6px 12px,#31493d 12px 20px,#7a4349 20px 27px,#c2a16a 27px 33px,#3c5447 33px 39px);border:13px solid #6d5139;box-shadow:inset 0 0 0 7px #c09b66}.library-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#1b241bb5,transparent 70%),linear-gradient(0deg,transparent 43%,#6d5139 43% 50%,transparent 50%)}.library-banner:after{content:'ARKIVET';position:absolute;inset:0;display:grid;place-items:center;color:#fff1d6;text-shadow:0 3px 9px #000;font:30px 'Rye',Georgia,serif;letter-spacing:3px}.history-book h3{margin-bottom:6px}.history-review{margin-left:15px;padding-left:14px;border-left:2px solid var(--line)}footer{text-align:center;padding:0 15px 40px;color:var(--muted);font:italic 16px Georgia,serif}.note{background:#f4ebdf;border-left:3px solid var(--gold);padding:12px 15px;border-radius:5px;margin:15px 0}.divider{border:0;border-top:1px solid var(--line);margin:24px 0}.hidden{display:none!important}@media(max-width:680px){nav{justify-content:flex-start}nav button{padding:10px 13px;font-size:13px}.card{padding:20px}.book-layout{grid-template-columns:1fr}.cover-area{max-width:195px;margin:auto}.next-meeting{grid-template-columns:76px 1fr;gap:13px;padding:17px}.next-meeting h2{font-size:22px}.wish-top{display:block}.wish-rating{margin-top:10px}.book-title{font-size:27px}}
+:root {
+  --green:#263e34;
+  --green2:#405b4c;
+  --cream:#f2ebdf;
+  --paper:#fffaf1;
+  --gold:#b88d4e;
+  --wine:#74444b;
+  --ink:#302e2a;
+  --muted:#796f65;
+  --line:#dfd2c0;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  color:var(--ink);
+  background:var(--cream);
+  font:15px/1.6 "DM Sans",sans-serif;
+}
+header {
+  background:var(--green);
+  color:#f8edda;
+  text-align:center;
+  padding:45px 15px;
+  border-bottom:5px solid var(--gold);
+}
+header h1 {
+  font:clamp(40px,8vw,75px) "Rye",Georgia,serif;
+  letter-spacing:2px;
+  margin:0;
+}
+header p {
+  font:italic 18px Georgia,serif;
+  margin:12px 0 0;
+}
+.ornament {
+  width:85px;
+  height:2px;
+  background:var(--gold);
+  margin:0 auto 22px;
+}
+nav {
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  padding:12px;
+  position:sticky;
+  top:0;
+  z-index:5;
+  overflow:auto;
+}
+nav button {
+  background:none;
+  color:var(--green);
+  border:0;
+  padding:10px 15px;
+  border-radius:25px;
+  font-weight:700;
+  white-space:nowrap;
+}
+nav button.active {
+  background:var(--green);
+  color:white;
+}
+main {
+  max-width:1000px;
+  width:92%;
+  margin:30px auto 70px;
+}
+.tab {display:none}
+.tab.active {display:block}
+.card {
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:22px;
+  box-shadow:0 10px 25px #40301e0a;
+}
+h2,h3 {
+  font-family:Georgia,serif;
+  color:var(--green);
+}
+h2 {font-size:31px;margin:0 0 14px}
+h3 {font-size:22px;margin:0 0 10px}
+.section-title {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.section-title h2 {margin:0}
+.muted {color:var(--muted)}
+.small {font-size:12px}
+label {
+  display:block;
+  margin:12px 0 5px;
+  font-size:12px;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--green);
+}
+input,textarea {
+  width:100%;
+  border:1px solid var(--line);
+  background:white;
+  border-radius:9px;
+  padding:11px 12px;
+  font:inherit;
+}
+textarea {min-height:90px;resize:vertical}
+button {font:inherit;cursor:pointer}
+button:disabled {opacity:.5;cursor:not-allowed}
+.primary {
+  background:var(--green);
+  color:white;
+  border:0;
+  padding:11px 17px;
+  border-radius:9px;
+  font-weight:700;
+  margin-top:12px;
+}
+.outline {
+  background:transparent;
+  color:var(--green);
+  border:1px solid var(--line);
+  padding:9px 12px;
+  border-radius:9px;
+}
+.danger {color:var(--wine)}
+.row {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.spread {justify-content:space-between}
+.grid2 {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+.hidden {display:none!important}
+.notice {
+  padding:12px 15px;
+  background:#f7edda;
+  border:1px solid #c7b391;
+  border-radius:10px;
+  margin-bottom:18px;
+}
+.error {color:#8b2730}
+.book-layout {
+  display:grid;
+  grid-template-columns:190px 1fr;
+  gap:26px;
+}
+.cover-placeholder {
+  aspect-ratio:2/3;
+  background:linear-gradient(135deg,#8c5b55,#4a5e50);
+  border:5px double #d5c3a8;
+  border-radius:7px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:15px;
+  color:#fff5e3;
+  font:22px Georgia,serif;
+}
+.book-icon {
+  width:42px;
+  height:31px;
+  position:relative;
+  flex:none;
+}
+.book-icon:before,.book-icon:after {
+  content:"";
+  position:absolute;
+  top:2px;
+  width:20px;
+  height:27px;
+  background:#eadcc4;
+  border:2px solid var(--green);
+}
+.book-icon:before {
+  left:0;
+  border-radius:6px 1px 1px 5px;
+  transform:skewY(8deg);
+}
+.book-icon:after {
+  right:0;
+  border-radius:1px 6px 5px 1px;
+  transform:skewY(-8deg);
+}
+.shelf {
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  height:38px;
+  border-bottom:4px solid #705038;
+  padding:0 4px;
+}
+.shelf i {
+  display:block;
+  width:9px;
+  height:27px;
+  background:#8a5158;
+  border:1px solid #624638;
+}
+.shelf i:nth-child(2){height:35px;background:#536e5b}
+.shelf i:nth-child(3){height:23px;background:#c39b59}
+.shelf i:nth-child(4){height:31px;background:#8c715b}
+.shelf i:nth-child(5){height:28px;background:#9e6b61}
+.calendar {
+  width:38px;
+  height:35px;
+  border:2px solid var(--green);
+  border-top:9px solid var(--wine);
+  border-radius:5px;
+  background:#f6e7cc;
+}
+.library {
+  height:135px;
+  border-radius:13px;
+  background:repeating-linear-gradient(
+    90deg,
+    #4b5d4e 0 17px,
+    #bca173 17px 21px,
+    #7b4b4d 21px 38px,
+    #c59c5c 38px 41px,
+    #5a493d 41px 53px
+  );
+  border:12px solid #604b39;
+  display:grid;
+  place-items:center;
+  margin-bottom:18px;
+}
+.library span {
+  font:32px "Rye",Georgia,serif;
+  color:#fff2d9;
+  background:#263e34e8;
+  padding:12px 25px;
+  border-radius:8px;
+}
+.stars button {
+  border:0;
+  background:none;
+  color:#c9c1b5;
+  font-size:34px;
+  padding:0 3px;
+}
+.stars button.on {color:var(--gold)}
+.item {
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.item-title {
+  font:700 22px Georgia,serif;
+  color:var(--green);
+}
+.score {
+  background:#eee3d3;
+  border-radius:11px;
+  padding:14px;
+  margin:12px 0;
+}
+.next {
+  background:var(--green);
+  color:#f8edda;
+  border-radius:17px;
+  padding:23px;
+  margin-bottom:22px;
+}
+.next h2 {color:white}
+.next .eyebrow {
+  color:#d9b879;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:11px;
+  font-weight:700;
+}
+.review {
+  background:#f7f0e5;
+  border-radius:12px;
+  padding:13px 15px;
+  margin:12px 0;
+}
+.review p {
+  white-space:pre-wrap;
+  margin:7px 0 0;
+}
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:24px;
+  font:italic 17px Georgia,serif;
+}
+.actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.actions button {margin-top:0}
+.tag {
+  display:inline-block;
+  background:#e7dbc8;
+  color:var(--green);
+  border-radius:15px;
+  padding:2px 9px;
+  font-size:11px;
+  font-weight:700;
+}
+footer {
+  text-align:center;
+  color:var(--muted);
+  font:italic 15px Georgia,serif;
+  padding:20px 0 50px;
+}
+#authCard {max-width:520px;margin:0 auto 25px}
+@media(max-width:650px) {
+  .book-layout,.grid2 {grid-template-columns:1fr}
+  .cover-box {max-width:170px;margin:auto}
+  nav {justify-content:flex-start}
+  .card {padding:19px}
+}
 </style>
 </head>
+
 <body>
-<header><div class="ornament"></div><h1>BOKSEKTEN</h1><p>Vi leser. Vi dømmer. Vi møtes igjen.</p></header>
-<nav aria-label="Hovedmeny"><button class="active" data-tab="current">Nå leser vi</button><button data-tab="wishes">Bokønsker</button><button data-tab="meetings">Møter</button><button data-tab="history">Historikk</button></nav>
+
+<header>
+  <div class="ornament"></div>
+  <h1>BOKSEKTEN</h1>
+  <p>Vi leser. Vi dømmer. Vi møtes igjen.</p>
+</header>
+
+<nav id="nav" class="hidden">
+  <button class="active" data-tab="current">Nå leser vi</button>
+  <button data-tab="wishes">Bokønsker</button>
+  <button data-tab="meetings">Møter</button>
+  <button data-tab="history">Historikk</button>
+</nav>
+
 <main>
-<section id="current" class="tab active"><div id="nextMeetingHome"></div><div class="section-heading"><div class="book-icon" aria-hidden="true"></div><h2>Nå leser vi</h2></div><div class="card"><div class="book-layout"><div class="cover-area"><div id="coverPlaceholder" class="cover-placeholder">Bokforside</div><img id="coverImage" class="cover hidden" alt="Forsiden på boka"><label for="coverUpload">Last opp bokforside</label><input id="coverUpload" type="file" accept="image/*"><p class="hint">Bildet lagres bare i denne nettleseren.</p></div><div><h2 class="book-title" id="bookHeading">Ingen bok valgt ennå</h2><p id="authorHeading" class="muted"></p><div id="bookEdit"><label for="bookTitle">Boktittel</label><input id="bookTitle" placeholder="Boktittel"><label for="bookAuthor">Forfatter</label><input id="bookAuthor" placeholder="Forfatter"><div class="actions"><button id="saveBook" class="primary">Lagre bok</button><button id="archiveBook" class="secondary hidden">Flytt boka til historikk</button></div><p class="hint">Du kan også velge en bok direkte fra Bokønsker.</p></div></div></div><div class="rating-area"><h3>Sektens dom</h3><p class="muted">Etter at dere har lest boka: gi 1–5 stjerner og skriv din ærlige dom.</p><div id="ratingSummary"></div><div id="reviewForm"><label for="reviewName">Navnet ditt</label><input id="reviewName" placeholder="Navn"><label>Din vurdering</label><div id="reviewStars" class="stars" aria-label="Velg stjerner"></div><label for="reviewText">Din dom over boka</label><textarea id="reviewText" placeholder="Hva elsket du? Hva irriterte deg? Ville du anbefalt den?"></textarea><div class="actions"><button id="saveReview" class="primary">Publiser min dom</button></div><p class="hint">Bruk samme navn for å oppdatere din tidligere dom.</p></div><div id="reviewList"></div></div></div></section>
-<section id="wishes" class="tab"><div class="section-heading"><div class="books-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><h2>Bokønsker</h2></div><div class="card"><h3>Foreslå en bok</h3><label for="wishName">Foreslått av</label><input id="wishName" placeholder="Navnet ditt"><label for="wishTitle">Boktittel</label><input id="wishTitle" placeholder="Boktittel"><label for="wishAuthor">Forfatter</label><input id="wishAuthor" placeholder="Forfatter"><label for="wishComment">Hvorfor bør vi lese den?</label><textarea id="wishComment" placeholder="Overbevis resten av sekten …"></textarea><div class="actions"><button id="addWish" class="primary">Legg til bokønske</button></div></div><div class="card"><h3>Sektens ønskeliste</h3><p class="hint">Bøkene rangeres etter gjennomsnittet av medlemmenes stjerner. Ved likt snitt vises boka med flest vurderinger først. Hver person kan gi én vurdering per bok og endre den senere.</p><div id="wishList"></div></div></section>
-<section id="meetings" class="tab"><div class="section-heading"><div class="calendar-icon" aria-hidden="true"></div><h2>Bokmøter</h2></div><div class="card"><h3 id="meetingFormHeading">Avtal et nytt møte</h3><label for="meetingDate">Dato</label><input id="meetingDate" type="date"><label for="meetingTime">Klokkeslett</label><input id="meetingTime" type="time"><label for="meetingPlace">Sted</label><input id="meetingPlace" placeholder="F.eks. hos Maria"><label for="meetingNote">Kommentar</label><textarea id="meetingNote" placeholder="Snacks, tema eller annen viktig informasjon …"></textarea><div class="actions"><button id="saveMeeting" class="primary">Legg til møte</button><button id="cancelMeetingEdit" class="secondary hidden">Avbryt redigering</button></div></div><div class="card"><h3>Kommende møter</h3><div id="upcomingMeetings"></div></div><div class="card"><h3>Tidligere møter</h3><div id="pastMeetings"></div></div></section>
-<section id="history" class="tab"><div class="section-heading"><div class="library-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><h2>Historikk</h2></div><div class="library-banner" role="img" aria-label="Illustrert bokhylle med gamle bøker"></div><div class="card"><h3>Bøker vi har lest</h3><div id="historyList"></div></div></section>
-</main><footer>Boksekten · bøker, diskusjoner og sterke meninger</footer>
+<div id="status" role="status"></div>
+
+<div id="authCard" class="card">
+  <h2>Velkommen til Boksekten</h2>
+  <p class="muted">
+    Logg inn med brukeren du har fått opprettet i bokklubben.
+  </p>
+
+  <form id="loginForm">
+    <label>E-postadresse</label>
+    <input id="email" type="email" required autocomplete="email">
+
+    <label>Passord</label>
+    <input id="password" type="password" required
+           autocomplete="current-password">
+
+    <button class="primary" type="submit">Logg inn</button>
+  </form>
+
+  <p class="muted small">
+    Kun godkjente medlemmer får tilgang.
+  </p>
+</div>
+
+<div id="app" class="hidden">
+
+  <div class="row spread" style="margin-bottom:18px">
+    <span id="memberName" class="muted small"></span>
+    <button id="logout" class="outline">Logg ut</button>
+  </div>
+
+  <section id="current" class="tab active">
+    <div id="nextMeeting" class="next"></div>
+
+    <div class="section-title">
+      <div class="book-icon"></div>
+      <h2>Nå leser vi</h2>
+    </div>
+
+    <div class="card" id="currentBook"></div>
+  </section>
+
+  <section id="wishes" class="tab">
+    <div class="section-title">
+      <div class="shelf">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <h2>Bokønsker</h2>
+    </div>
+
+    <div class="card">
+      <h3>Foreslå en bok</h3>
+
+      <form id="wishForm">
+        <label>Boktittel</label>
+        <input id="wishTitle" required maxlength="200">
+
+        <label>Forfatter</label>
+        <input id="wishAuthor" maxlength="200">
+
+        <label>Foreslått av</label>
+        <input id="wishName" maxlength="100">
+
+        <label>Hvorfor bør vi lese den?</label>
+        <textarea id="wishComment" maxlength="2000"></textarea>
+
+        <button class="primary" type="submit">
+          Legg til bokønske
+        </button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Sektens ønskeliste</h3>
+      <p class="muted small">
+        Bøkene rangeres etter gjennomsnittlig antall stjerner.
+        Ved lik karakter kommer boka med flest stemmer først.
+      </p>
+      <div id="wishList"></div>
+    </div>
+  </section>
+
+  <section id="meetings" class="tab">
+    <div class="section-title">
+      <div class="calendar"></div>
+      <h2>Bokmøter</h2>
+    </div>
+
+    <div class="card">
+      <h3 id="meetingFormTitle">Avtal et møte</h3>
+
+      <form id="meetingForm">
+        <div class="grid2">
+          <div>
+            <label>Dato</label>
+            <input id="meetingDate" type="date" required>
+          </div>
+          <div>
+            <label>Klokkeslett</label>
+            <input id="meetingTime" type="time">
+          </div>
+        </div>
+
+        <label>Sted</label>
+        <input id="meetingPlace" maxlength="200">
+
+        <label>Kommentar</label>
+        <textarea id="meetingNote" maxlength="2000"></textarea>
+
+        <div class="actions">
+          <button id="meetingSubmit" class="primary" type="submit">
+            Legg til møte
+          </button>
+          <button id="cancelMeeting" type="button"
+                  class="outline hidden">
+            Avbryt
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Kommende møter</h3>
+      <div id="upcoming"></div>
+    </div>
+
+    <div class="card">
+      <h3>Tidligere møter</h3>
+      <div id="past"></div>
+    </div>
+  </section>
+
+  <section id="history" class="tab">
+    <div class="section-title">
+      <div class="shelf">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <h2>Historikk</h2>
+    </div>
+
+    <div class="library"><span>ARKIVET</span></div>
+
+    <div class="card">
+      <h3>Bøkene vi har lest</h3>
+      <div id="historyList"></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  Boksekten · bøker, diskusjoner og sterke meninger
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 <script>
-'use strict';
-const $=id=>document.getElementById(id);
-const KEYS={book:'boksekten-book',cover:'boksekten-cover',ratings:'boksekten-ratings',wishes:'boksekten-wishes',meetings:'boksekten-meetings',history:'boksekten-history'};
-const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
-function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v)}catch{return fallback}}
-function write(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{alert('Kunne ikke lagre. Nettleserens lagringsplass kan være full.');return false}}
-function text(tag,content,className){const el=document.createElement(tag);el.textContent=String(content??'');if(className)el.className=className;return el}
-function empty(msg){return text('div',msg,'empty')}
-function normalizeName(name){return String(name||'').trim().toLocaleLowerCase('nb-NO')}
-function average(items){return items.length?items.reduce((s,x)=>s+Number(x.stars||0),0)/items.length:0}
-function starsText(n){return '★'.repeat(Math.max(0,Math.min(5,Math.round(n))))+'☆'.repeat(5-Math.max(0,Math.min(5,Math.round(n))))}
-function dateLocal(s){return new Date(s+'T12:00:00')}
-function fullDate(s){return dateLocal(s).toLocaleDateString('nb-NO',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
-function setTab(id){document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.id===id));document.querySelectorAll('nav button').forEach(e=>e.classList.toggle('active',e.dataset.tab===id));if(id==='meetings')renderMeetings();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
-function getBook(){const b=read(KEYS.book,null);return b&&typeof b==='object'&&b.title?b:null}
-function getWishes(){const w=read(KEYS.wishes,[]);return Array.isArray(w)?w:[]}
-function getMeetings(){const m=read(KEYS.meetings,[]);return Array.isArray(m)?m:[]}
-function getHistory(){const h=read(KEYS.history,[]);return Array.isArray(h)?h:[]}
-function getReviews(){const r=read(KEYS.ratings,[]);return Array.isArray(r)?r:[]}
-function migrate(){if(!localStorage.getItem(KEYS.book)){const old=read('boksekten-current-book',null);if(old&&typeof old==='object'&&old.title)write(KEYS.book,old)}const wishes=getWishes();let changed=false;wishes.forEach(w=>{if(!w.id){w.id=uid();changed=true}if(!Array.isArray(w.ratings)){w.ratings=[];changed=true}});if(changed)write(KEYS.wishes,wishes);const meetings=getMeetings();changed=false;meetings.forEach(m=>{if(!m.id){m.id=uid();changed=true}});if(changed)write(KEYS.meetings,meetings)}
-function clearCover(){localStorage.removeItem(KEYS.cover);$('coverImage').removeAttribute('src');$('coverImage').classList.add('hidden');$('coverPlaceholder').classList.remove('hidden');$('coverUpload').value=''}
-function showCover(src){if(!src)return;$('coverImage').src=src;$('coverImage').classList.remove('hidden');$('coverPlaceholder').classList.add('hidden')}
-function renderBook(){const b=getBook();$('bookTitle').value=b?.title||'';$('bookAuthor').value=b?.author||'';$('bookHeading').textContent=b?.title||'Ingen bok valgt ennå';$('authorHeading').textContent=b?.author?'av '+b.author:'';$('archiveBook').classList.toggle('hidden',!b);$('reviewForm').classList.toggle('hidden',!b);renderReviews()}
-function saveBook(){const title=$('bookTitle').value.trim(),author=$('bookAuthor').value.trim();if(!title){alert('Skriv inn boktittelen.');return}const previous=getBook();if(previous&&(previous.title!==title||previous.author!==author)&&getReviews().length){alert('Denne boka har allerede anmeldelser. Flytt den til Historikk før du velger en ny bok.');return}if(write(KEYS.book,{title,author})){renderBook()}}
-$('saveBook').addEventListener('click',saveBook);
-$('coverUpload').addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return;if(file.size>1400000){alert('Velg et bilde under 1,4 MB, så er det større sjanse for at det får plass.');return}const reader=new FileReader();reader.onload=()=>{try{localStorage.setItem(KEYS.cover,reader.result);showCover(reader.result)}catch{alert('Bildet er for stort til å lagres. Prøv et mindre bilde.')}};reader.readAsDataURL(file)});
-function starPicker(container,onChange){let value=0;const buttons=[];function paint(){buttons.forEach((b,i)=>{b.classList.toggle('selected',i<value);b.setAttribute('aria-pressed',String(i<value))})}for(let i=1;i<=5;i++){const b=text('button','★','star');b.type='button';b.title=i+' stjerner';b.setAttribute('aria-label',i+' stjerner');b.addEventListener('click',()=>{value=i;paint();onChange?.(value)});container.append(b);buttons.push(b)}return{get:()=>value,set:n=>{value=n;paint()}}}
-const reviewPicker=starPicker($('reviewStars'));
-function saveReview(){if(!getBook()){alert('Velg en bok først.');return}const name=$('reviewName').value.trim(),body=$('reviewText').value.trim(),stars=reviewPicker.get();if(!name||!stars||!body){alert('Skriv navn, velg stjerner og skriv din dom.');return}const reviews=getReviews(),idx=reviews.findIndex(r=>normalizeName(r.name)===normalizeName(name));const review={name,stars,text:body};if(idx>=0)reviews[idx]=review;else reviews.push(review);if(write(KEYS.ratings,reviews)){$('reviewName').value='';$('reviewText').value='';reviewPicker.set(0);renderReviews()}}
-$('saveReview').addEventListener('click',saveReview);
-function renderReviews(){const reviews=getReviews(),summary=$('ratingSummary'),list=$('reviewList');summary.replaceChildren();list.replaceChildren();if(!getBook()){summary.append(empty('Velg en bok for å starte Sektens dom.'));return}if(!reviews.length){summary.append(empty('Ingen dommer ennå. Hvem blir først?'));return}const box=document.createElement('div');box.className='rating-summary';box.append(text('div','SEKTENS SAMLEDE DOM','small-label'),text('strong',average(reviews).toFixed(1).replace('.',',')+' / 5'),text('div',starsText(average(reviews)),'gold-stars'),text('div',reviews.length+' '+(reviews.length===1?'vurdering':'vurderinger'),'small-label'));summary.append(box);reviews.forEach(r=>{const item=document.createElement('div');item.className='review';const head=document.createElement('div');head.className='review-head';head.append(text('strong',r.name),text('span',starsText(r.stars),'gold-stars'));item.append(head);if(r.text)item.append(text('p',r.text));list.append(item)})}
-function addWish(){const name=$('wishName').value.trim(),title=$('wishTitle').value.trim(),author=$('wishAuthor').value.trim(),comment=$('wishComment').value.trim();if(!name||!title){alert('Skriv navn og boktittel.');return}const wishes=getWishes();wishes.push({id:uid(),name,title,author,comment,ratings:[],votes:0});if(write(KEYS.wishes,wishes)){['wishName','wishTitle','wishAuthor','wishComment'].forEach(id=>$(id).value='');renderWishes()}}
-$('addWish').addEventListener('click',addWish);
-function rateWish(id,name,stars){name=name.trim();if(!name||!stars){alert('Skriv navnet ditt og velg 1–5 stjerner.');return}const wishes=getWishes(),wish=wishes.find(w=>w.id===id);if(!wish)return;wish.ratings=Array.isArray(wish.ratings)?wish.ratings:[];const i=wish.ratings.findIndex(r=>normalizeName(r.name)===normalizeName(name));if(i>=0)wish.ratings[i]={name,stars};else wish.ratings.push({name,stars});if(write(KEYS.wishes,wishes))renderWishes()}
-function deleteWish(id){if(!confirm('Vil du slette dette bokønsket?'))return;const wishes=getWishes().filter(w=>w.id!==id);if(write(KEYS.wishes,wishes))renderWishes()}
-function chooseWish(id){const wishes=getWishes(),w=wishes.find(x=>x.id===id);if(!w)return;if(getBook()){alert('Det ligger allerede en bok under Nå leser vi. Flytt den til Historikk først.');return}if(!confirm('Velge «'+w.title+'» som boka dere leser nå? Den fjernes fra Bokønsker.'))return;const oldBook=localStorage.getItem(KEYS.book),oldWishes=localStorage.getItem(KEYS.wishes);if(!write(KEYS.book,{title:w.title,author:w.author||''}))return;if(!write(KEYS.wishes,wishes.filter(x=>x.id!==id))){if(oldBook===null)localStorage.removeItem(KEYS.book);else localStorage.setItem(KEYS.book,oldBook);return}localStorage.removeItem(KEYS.ratings);clearCover();renderBook();renderWishes();setTab('current')}
-function renderWishes(){const root=$('wishList');root.replaceChildren();const wishes=getWishes().sort((a,b)=>average(b.ratings||[])-average(a.ratings||[])||(b.ratings||[]).length-(a.ratings||[]).length||a.title.localeCompare(b.title,'nb'));if(!wishes.length){root.append(empty('Ingen bokønsker ennå. Foreslå den første!'));return}wishes.forEach((w,i)=>{const ratings=Array.isArray(w.ratings)?w.ratings:[],box=document.createElement('article');box.className='wish';const top=document.createElement('div');top.className='wish-top';const left=document.createElement('div');left.append(text('div',(i+1)+'. '+w.title,'wish-title'),text('div',w.author||'Ukjent forfatter','muted'),text('div','Foreslått av '+(w.name||'Ukjent'),'wish-meta'));if(w.comment)left.append(text('p',w.comment,'wish-comment'));const right=document.createElement('div');right.className='wish-rating';right.append(text('div',ratings.length?average(ratings).toFixed(1).replace('.',',')+' / 5':'Ikke vurdert'),text('div',ratings.length?starsText(average(ratings)):'☆☆☆☆☆','gold-stars'),text('div',ratings.length+' '+(ratings.length===1?'stemme':'stemmer'),'small-label'));top.append(left,right);box.append(top);const panel=document.createElement('div');panel.className='vote-panel';panel.append(text('strong','Hvor lyst har du til å lese denne boka?'));const nameInput=document.createElement('input');nameInput.placeholder='Navnet ditt';nameInput.setAttribute('aria-label','Navnet ditt');nameInput.style.marginTop='10px';const starWrap=document.createElement('div');starWrap.className='stars';const picker=starPicker(starWrap);const actions=document.createElement('div');actions.className='actions';const vote=text('button','Gi min vurdering','primary');vote.addEventListener('click',()=>rateWish(w.id,nameInput.value,picker.get()));const choose=text('button','Velg som neste bok','secondary');choose.addEventListener('click',()=>chooseWish(w.id));const del=text('button','Slett ønske','danger');del.addEventListener('click',()=>deleteWish(w.id));actions.append(vote,choose,del);panel.append(nameInput,starWrap,actions);if(ratings.length){const names=text('div','Vurdert av: '+ratings.map(r=>r.name+' ('+r.stars+'/5)').join(', '),'hint');panel.append(names)}if(!ratings.length&&Number(w.votes)>0)panel.append(text('p','Tidligere hjerter: '+w.votes+'. Nye stjernevurderinger starter på nytt.','hint'));box.append(panel);root.append(box)})}
-function archiveBook(){const b=getBook();if(!b)return;if(!confirm('Flytte «'+b.title+'» til Historikk med alle anmeldelser og samlet vurdering?'))return;const reviews=getReviews(),history=getHistory();history.unshift({id:uid(),title:b.title,author:b.author||'',archivedAt:new Date().toISOString(),reviews:structuredClone(reviews),average:average(reviews)});if(!write(KEYS.history,history))return;localStorage.removeItem(KEYS.book);localStorage.removeItem(KEYS.ratings);clearCover();$('reviewName').value='';$('reviewText').value='';reviewPicker.set(0);renderBook();renderHistory();setTab('history')}
-$('archiveBook').addEventListener('click',archiveBook);
-function renderHistory(){const root=$('historyList');root.replaceChildren();const history=getHistory();if(!history.length){root.append(empty('Arkivet er foreløpig tomt. Her skal tidligere bøker få evig liv.'));return}history.forEach(b=>{const item=document.createElement('article');item.className='history-book';item.append(text('h3',b.title),text('div',b.author?'av '+b.author:'Ukjent forfatter','muted'));if(b.archivedAt)item.append(text('p','Arkivert '+new Date(b.archivedAt).toLocaleDateString('nb-NO')));const reviews=Array.isArray(b.reviews)?b.reviews:[];item.append(text('div',reviews.length?'Sektens samlede dom: '+average(reviews).toFixed(1).replace('.',',')+' / 5 · '+reviews.length+' vurderinger':'Ingen vurderinger registrert','wish-rating'));if(reviews.length)item.append(text('div',starsText(average(reviews)),'gold-stars'));reviews.forEach(r=>{const div=document.createElement('div');div.className='review history-review';const head=document.createElement('div');head.className='review-head';head.append(text('strong',r.name),text('span',starsText(r.stars),'gold-stars'));div.append(head);if(r.text)div.append(text('p',r.text));item.append(div)});root.append(item)})}
-let editingMeetingId=null;
-function clearMeetingForm(){editingMeetingId=null;['meetingDate','meetingTime','meetingPlace','meetingNote'].forEach(id=>$(id).value='');$('meetingFormHeading').textContent='Avtal et nytt møte';$('saveMeeting').textContent='Legg til møte';$('cancelMeetingEdit').classList.add('hidden')}
-function saveMeeting(){const date=$('meetingDate').value,time=$('meetingTime').value,place=$('meetingPlace').value.trim(),note=$('meetingNote').value.trim();if(!date){alert('Velg dato.');return}const meetings=getMeetings();if(editingMeetingId){const i=meetings.findIndex(m=>m.id===editingMeetingId);if(i<0){clearMeetingForm();return}meetings[i]={...meetings[i],date,time,place,note}}else meetings.push({id:uid(),date,time,place,note});if(write(KEYS.meetings,meetings)){clearMeetingForm();renderMeetings()}}
-$('saveMeeting').addEventListener('click',saveMeeting);$('cancelMeetingEdit').addEventListener('click',clearMeetingForm);
-function editMeeting(id){const m=getMeetings().find(x=>x.id===id);if(!m)return;editingMeetingId=id;$('meetingDate').value=m.date||'';$('meetingTime').value=m.time||'';$('meetingPlace').value=m.place||'';$('meetingNote').value=m.note||'';$('meetingFormHeading').textContent='Rediger møte';$('saveMeeting').textContent='Lagre endringer';$('cancelMeetingEdit').classList.remove('hidden');setTab('meetings')}
-function deleteMeeting(id){if(!confirm('Vil du slette dette møtet?'))return;if(write(KEYS.meetings,getMeetings().filter(m=>m.id!==id))){if(editingMeetingId===id)clearMeetingForm();renderMeetings()}}
-function meetingMoment(m){return new Date(m.date+'T'+(m.time||'23:59')+':00')}
-function meetingRow(m){const row=document.createElement('article');row.className='meeting';const date=dateLocal(m.date),dateBox=document.createElement('div');dateBox.className='meeting-date';dateBox.append(text('strong',date.getDate()),text('span',date.toLocaleDateString('nb-NO',{month:'short'})));const info=document.createElement('div');info.className='meeting-info';info.append(text('strong',fullDate(m.date)),text('p',(m.time?'Kl. '+m.time:'Tid ikke bestemt')+(m.place?' · '+m.place:'')));if(m.note)info.append(text('p',m.note,'muted'));const actions=document.createElement('div');actions.className='actions';const edit=text('button','Rediger','secondary');edit.addEventListener('click',()=>editMeeting(m.id));const del=text('button','Slett','danger');del.addEventListener('click',()=>deleteMeeting(m.id));actions.append(edit,del);info.append(actions);row.append(dateBox,info);return row}
-function renderMeetings(){const meetings=getMeetings().filter(m=>m.date).sort((a,b)=>meetingMoment(a)-meetingMoment(b)),now=new Date(),up=meetings.filter(m=>meetingMoment(m)>=now),past=meetings.filter(m=>meetingMoment(m)<now).reverse();const upcoming=$('upcomingMeetings'),previous=$('pastMeetings');upcoming.replaceChildren();previous.replaceChildren();if(!up.length)upcoming.append(empty('Ingen kommende møter er avtalt.'));else up.forEach(m=>upcoming.append(meetingRow(m)));if(!past.length)previous.append(empty('Ingen tidligere møter ennå.'));else past.forEach(m=>previous.append(meetingRow(m)));renderNextMeeting(up[0])}
-function renderNextMeeting(m){const root=$('nextMeetingHome');root.replaceChildren();if(!m){const card=document.createElement('div');card.className='card';card.append(text('div','NESTE BOKMØTE','small-label'),text('h2','Ingen dato er satt ennå'),text('p','Gå til Møter for å avtale neste samling.','muted'));root.append(card);return}const card=document.createElement('div');card.className='next-meeting';const date=dateLocal(m.date),dateBox=document.createElement('div');dateBox.className='date-box';dateBox.append(text('strong',date.getDate()),text('span',date.toLocaleDateString('nb-NO',{month:'short'})));const info=document.createElement('div');info.append(text('div','NESTE BOKMØTE','eyebrow'),text('h2',fullDate(m.date)),text('p',(m.time?'Kl. '+m.time:'Tid ikke bestemt')+(m.place?' · '+m.place:'')));if(m.note)info.append(text('p',m.note));card.append(dateBox,info);root.append(card)}
-try{migrate()}catch(e){console.warn('Kunne ikke migrere gamle data',e)}renderBook();renderWishes();renderHistory();renderMeetings();const cover=localStorage.getItem(KEYS.cover);if(cover)showCover(cover);
+"use strict";
+
+const SUPABASE_URL =
+  "https://ntfjirrlwufwaxhvdyau.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_kIg36hFI4relDGco7_IugA_KwGO1ZN2";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const $ = id => document.getElementById(id);
+
+let user = null;
+let books = [];
+let votes = [];
+let reviews = [];
+let meetings = [];
+let editingMeeting = null;
+let selectedReview = 0;
+
+function element(tag, text, className) {
+  const node = document.createElement(tag);
+  if (text !== null && text !== undefined) {
+    node.textContent = String(text);
+  }
+  if (className) node.className = className;
+  return node;
+}
+
+function button(text, action, className = "outline") {
+  const node = element("button", text, className);
+  node.type = "button";
+  node.onclick = action;
+  return node;
+}
+
+function append(parent, ...children) {
+  children.forEach(child => parent.appendChild(child));
+}
+
+function message(text, error = false) {
+  const area = $("status");
+  area.replaceChildren();
+  if (!text) return;
+
+  const notice = element("div", text, "notice");
+  if (error) notice.classList.add("error");
+  area.appendChild(notice);
+}
+
+function errorText(error) {
+  return error?.message || "En ukjent feil oppstod.";
+}
+
+async function request(query) {
+  const result = await query;
+  if (result.error) {
+    message(errorText(result.error), true);
+    throw result.error;
+  }
+  return result.data;
+}
+
+function average(items) {
+  if (!items.length) return null;
+  return items.reduce((sum, x) => sum + x.stars, 0) /
+    items.length;
+}
+
+function scoreText(value) {
+  return value === null
+    ? "Ingen vurderinger ennå"
+    : value.toFixed(1).replace(".", ",") + " / 5";
+}
+
+function stars(value) {
+  if (value === null) return "☆☆☆☆☆";
+  const n = Math.round(value);
+  return "★".repeat(n) + "☆".repeat(5 - n);
+}
+
+function dateText(value) {
+  return new Date(value + "T12:00:00")
+    .toLocaleDateString("nb-NO", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+}
+
+function meetingMoment(meeting) {
+  return new Date(
+    meeting.meeting_date + "T" +
+    (meeting.meeting_time || "23:59:59")
+  );
+}
+
+function activeTab(id) {
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.toggle("active", tab.id === id);
+  });
+
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.toggle(
+      "active",
+      btn.dataset.tab === id
+    );
+  });
+
+  message("");
+}
+
+document.querySelectorAll("nav button").forEach(btn => {
+  btn.onclick = () => activeTab(btn.dataset.tab);
+});
+
+function authUI() {
+  $("authCard").classList.toggle("hidden", !!user);
+  $("app").classList.toggle("hidden", !user);
+  $("nav").classList.toggle("hidden", !user);
+  $("memberName").textContent = user?.email || "";
+}
+
+async function refresh() {
+  if (!user) return;
+
+  try {
+    const results = await Promise.all([
+      request(db.from("club_members")
+        .select("user_id").eq("user_id", user.id)),
+      request(db.from("books").select("*")),
+      request(db.from("wish_votes").select("*")),
+      request(db.from("reviews").select("*")),
+      request(db.from("meetings").select("*"))
+    ]);
+
+    if (!results[0].length) {
+      throw new Error(
+        "Brukeren er ikke godkjent medlem av Boksekten."
+      );
+    }
+
+    books = results[1];
+    votes = results[2];
+    reviews = results[3];
+    meetings = results[4];
+
+    renderAll();
+  } catch (error) {
+    message("Kunne ikke hente data: " + errorText(error), true);
+  }
+}
+
+async function init() {
+  try {
+    const result = await db.auth.getUser();
+
+    if (result.error &&
+        result.error.name !== "AuthSessionMissingError") {
+      throw result.error;
+    }
+
+    user = result.data?.user || null;
+    authUI();
+
+    if (user) await refresh();
+  } catch (error) {
+    message(errorText(error), true);
+  }
+}
+
+$("loginForm").onsubmit = async event => {
+  event.preventDefault();
+
+  const submit = event.submitter;
+  submit.disabled = true;
+
+  try {
+    const result = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+
+    if (result.error) throw result.error;
+
+    user = result.data.user;
+    $("password").value = "";
+
+    authUI();
+    await refresh();
+  } catch (error) {
+    message("Innlogging feilet: " + errorText(error), true);
+  } finally {
+    submit.disabled = false;
+  }
+};
+
+$("logout").onclick = async () => {
+  const result = await db.auth.signOut();
+
+  if (result.error) {
+    message(errorText(result.error), true);
+    return;
+  }
+
+  user = null;
+  books = [];
+  votes = [];
+  reviews = [];
+  meetings = [];
+
+  authUI();
+  message("Du er logget ut.");
+};
+
+function renderAll() {
+  renderCurrent();
+  renderWishes();
+  renderMeetings();
+  renderHistory();
+}
+
+/* NÅ LESER VI OG SEKTENS DOM */
+
+function renderCurrent() {
+  const area = $("currentBook");
+  area.replaceChildren();
+
+  const current = books.find(b => b.status === "current");
+
+  if (!current) {
+    area.appendChild(element(
+      "p",
+      "Ingen bok er valgt ennå. Gå til Bokønsker for å velge neste bok.",
+      "empty"
+    ));
+    return;
+  }
+
+  const layout = element("div", null, "book-layout");
+  const cover = element("div", null, "cover-box");
+  const detail = element("div");
+
+  if (current.cover_url &&
+      current.cover_url.startsWith("https://")) {
+    const img = element("img");
+    img.src = current.cover_url;
+    img.alt = "Bokforside";
+    img.style.width = "100%";
+    cover.appendChild(img);
+  } else {
+    cover.appendChild(element(
+      "div",
+      "BOKSEKTEN",
+      "cover-placeholder"
+    ));
+  }
+
+  append(
+    detail,
+    element("h2", current.title),
+    element("p", current.author
+      ? "av " + current.author
+      : "Forfatter ikke oppgitt", "muted")
+  );
+
+  const bookReviews = reviews.filter(
+    r => r.book_id === current.id
+  );
+
+  detail.appendChild(element(
+    "div",
+    "Sektens samlede dom: " +
+      scoreText(average(bookReviews)) +
+      " · " + bookReviews.length + " vurderinger",
+    "score"
+  ));
+
+  const previous = bookReviews.find(
+    r => r.user_id === user.id
+  );
+
+  selectedReview = previous?.stars || 0;
+
+  const form = element("form");
+  form.appendChild(element("h3", "Skriv din dom"));
+  form.appendChild(element("label", "Navnet ditt"));
+
+  const name = element("input");
+  name.required = true;
+  name.maxLength = 100;
+  name.placeholder = "Navn";
+  name.value = previous?.reviewer_name || "";
+  form.appendChild(name);
+
+  form.appendChild(element(
+    "label",
+    "Din vurdering (1–5 stjerner)"
+  ));
+
+  const starRow = element("div", null, "stars");
+
+  for (let i = 1; i <= 5; i++) {
+    const star = button("★", () => {
+      selectedReview = i;
+      [...starRow.children].forEach((s, index) => {
+        s.classList.toggle("on", index < i);
+      });
+    });
+
+    star.className = i <= selectedReview ? "on" : "";
+    star.setAttribute("aria-label", i + " stjerner");
+    starRow.appendChild(star);
+  }
+
+  form.appendChild(starRow);
+  form.appendChild(element(
+    "label",
+    "Hva syntes du om boka?"
+  ));
+
+  const text = element("textarea");
+  text.maxLength = 5000;
+  text.placeholder = "Skriv din ærlige dom ...";
+  text.value = previous?.review_text || "";
+  form.appendChild(text);
+
+  const submit = element(
+    "button",
+    previous ? "Oppdater min dom" : "Publiser min dom",
+    "primary"
+  );
+  submit.type = "submit";
+  form.appendChild(submit);
+
+  form.onsubmit = async event => {
+    event.preventDefault();
+
+    if (!selectedReview) {
+      message("Velg 1–5 stjerner først.", true);
+      return;
+    }
+
+    if (!name.value.trim()) {
+      message("Skriv inn navnet ditt.", true);
+      return;
+    }
+
+    submit.disabled = true;
+
+    try {
+      await request(db.from("reviews").upsert({
+        book_id: current.id,
+        user_id: user.id,
+        reviewer_name: name.value.trim(),
+        stars: selectedReview,
+        review_text: text.value.trim()
+      }, {
+        onConflict: "book_id,user_id"
+      }));
+
+      await refresh();
+      message("Dommen din er lagret!");
+    } catch (error) {
+      // Feilen vises av request().
+    } finally {
+      submit.disabled = false;
+    }
+  };
+
+  detail.appendChild(form);
+
+  const list = element("div");
+  list.appendChild(element("h3", "Medlemmenes dommer"));
+
+  if (!bookReviews.length) {
+    list.appendChild(element(
+      "p",
+      "Ingen anmeldelser ennå.",
+      "muted"
+    ));
+  }
+
+  bookReviews.forEach(review => {
+    const item = element("div", null, "review");
+
+    item.appendChild(element(
+      "strong",
+      review.reviewer_name + " · " + stars(review.stars)
+    ));
+
+    if (review.review_text) {
+      item.appendChild(element("p", review.review_text));
+    }
+
+    list.appendChild(item);
+  });
+
+  detail.appendChild(list);
+
+  detail.appendChild(button(
+    "Flytt boka til historikk",
+    async () => {
+      if (!confirm(
+        "Er dere ferdige med «" + current.title +
+        "»? Boka og anmeldelsene flyttes til historikk."
+      )) return;
+
+      try {
+        await request(
+          db.from("books").update({
+            status: "history",
+            finished_at: new Date().toISOString()
+          }).eq("id", current.id)
+        );
+
+        await refresh();
+        message("Boka er flyttet til historikk!");
+      } catch (error) {}
+    },
+    "primary"
+  ));
+
+  append(layout, cover, detail);
+  area.appendChild(layout);
+}
+
+/* BOKØNSKER */
+
+$("wishForm").onsubmit = async event => {
+  event.preventDefault();
+
+  const submit = event.submitter;
+  submit.disabled = true;
+
+  try {
+    await request(db.from("books").insert({
+      title: $("wishTitle").value.trim(),
+      author: $("wishAuthor").value.trim(),
+      suggested_by: $("wishName").value.trim() ||
+        user.email,
+      suggestion_comment: $("wishComment").value.trim(),
+      status: "wish"
+    }));
+
+    event.target.reset();
+    await refresh();
+    message("Bokønsket er lagt til!");
+  } catch (error) {
+  } finally {
+    submit.disabled = false;
+  }
+};
+
+function renderWishes() {
+  const list = $("wishList");
+  list.replaceChildren();
+
+  const wishes = books
+    .filter(b => b.status === "wish")
+    .map(b => ({
+      ...b,
+      bookVotes: votes.filter(v => v.book_id === b.id)
+    }));
+
+  wishes.sort((a, b) =>
+    (average(b.bookVotes) ?? -1) -
+    (average(a.bookVotes) ?? -1) ||
+    b.bookVotes.length - a.bookVotes.length ||
+    a.title.localeCompare(b.title, "nb")
+  );
+
+  if (!wishes.length) {
+    list.appendChild(element(
+      "div",
+      "Ingen bokønsker ennå.",
+      "empty"
+    ));
+    return;
+  }
+
+  wishes.forEach((book, index) => {
+    const item = element("div", null, "item");
+
+    append(
+      item,
+      element("span", (index + 1) + ". plass", "tag"),
+      element("div", book.title, "item-title"),
+      element("div",
+        book.author || "Ukjent forfatter", "muted"),
+      element("div",
+        "Foreslått av " +
+        (book.suggested_by || "et medlem"),
+        "small muted")
+    );
+
+    if (book.suggestion_comment) {
+      item.appendChild(element(
+        "p",
+        book.suggestion_comment
+      ));
+    }
+
+    item.appendChild(element(
+      "div",
+      scoreText(average(book.bookVotes)) +
+      " · " + book.bookVotes.length +
+      " stemmer · " + stars(average(book.bookVotes)),
+      "score"
+    ));
+
+    const ownVote = book.bookVotes.find(
+      v => v.user_id === user.id
+    );
+
+    item.appendChild(element(
+      "div",
+      ownVote
+        ? "Din stemme (trykk for å endre):"
+        : "Gi boka 1–5 stjerner:",
+      "small muted"
+    ));
+
+    const starRow = element("div", null, "stars");
+
+    for (let i = 1; i <= 5; i++) {
+      const star = button("★", async () => {
+        try {
+          await request(db.from("wish_votes").upsert({
+            book_id: book.id,
+            user_id: user.id,
+            stars: i
+          }, {
+            onConflict: "book_id,user_id"
+          }));
+
+          await refresh();
+          message("Stemmen din er lagret!");
+        } catch (error) {}
+      });
+
+      star.className =
+        i <= (ownVote?.stars || 0) ? "on" : "";
+
+      star.setAttribute(
+        "aria-label",
+        "Gi " + i + " stjerner til " + book.title
+      );
+
+      starRow.appendChild(star);
+    }
+
+    item.appendChild(starRow);
+
+    const actions = element("div", null, "actions");
+
+    actions.appendChild(button(
+      "Velg som neste bok",
+      async () => {
+        const current = books.find(
+          b => b.status === "current"
+        );
+
+        if (current) {
+          message(
+            "Flytt først boka dere leser nå til Historikk.",
+            true
+          );
+          return;
+        }
+
+        if (!confirm(
+          "Velge «" + book.title +
+          "» som neste bok? Den fjernes fra ønskelisten."
+        )) return;
+
+        try {
+          await request(db.from("books").update({
+            status: "current",
+            started_at: new Date().toISOString()
+          }).eq("id", book.id));
+
+          await refresh();
+          activeTab("current");
+          message("Boka er flyttet til Nå leser vi!");
+        } catch (error) {}
+      },
+      "primary"
+    ));
+
+    actions.appendChild(button(
+      "Slett forslag",
+      async () => {
+        if (!confirm(
+          "Slette «" + book.title +
+          "» og alle stemmene på den?"
+        )) return;
+
+        try {
+          await request(
+            db.from("books").delete().eq("id", book.id)
+          );
+          await refresh();
+        } catch (error) {}
+      },
+      "outline danger"
+    ));
+
+    item.appendChild(actions);
+    list.appendChild(item);
+  });
+}
+
+/* MØTER */
+
+function renderMeetings() {
+  const now = new Date();
+
+  const sorted = [...meetings].sort(
+    (a, b) => meetingMoment(a) - meetingMoment(b)
+  );
+
+  const upcoming = sorted.filter(
+    m => meetingMoment(m) >= now
+  );
+
+  const past = sorted.filter(
+    m => meetingMoment(m) < now
+  ).reverse();
+
+  const next = $("nextMeeting");
+  next.replaceChildren();
+
+  next.appendChild(element(
+    "div",
+    "NESTE BOKMØTE",
+    "eyebrow"
+  ));
+
+  next.appendChild(element(
+    "h2",
+    upcoming.length
+      ? dateText(upcoming[0].meeting_date)
+      : "Ingen møter er avtalt"
+  ));
+
+  if (upcoming.length) {
+    const meeting = upcoming[0];
+
+    next.appendChild(element(
+      "p",
+      (meeting.meeting_time
+        ? "Kl. " + meeting.meeting_time.slice(0, 5)
+        : "Tid ikke bestemt") +
+      (meeting.place ? " · " + meeting.place : "")
+    ));
+
+    if (meeting.note) {
+      next.appendChild(element("p", meeting.note));
+    }
+  }
+
+  const sections = [
+    ["upcoming", upcoming, "Ingen kommende møter."],
+    ["past", past, "Ingen tidligere møter."]
+  ];
+
+  sections.forEach(([id, items, emptyText]) => {
+    const area = $(id);
+    area.replaceChildren();
+
+    if (!items.length) {
+      area.appendChild(element(
+        "div", emptyText, "empty"
+      ));
+    }
+
+    items.forEach(meeting => {
+      const item = element("div", null, "item");
+
+      item.appendChild(element(
+        "div",
+        dateText(meeting.meeting_date),
+        "item-title"
+      ));
+
+      item.appendChild(element(
+        "p",
+        (meeting.meeting_time
+          ? "Kl. " + meeting.meeting_time.slice(0, 5)
+          : "Tid ikke bestemt") +
+        (meeting.place ? " · " + meeting.place : "")
+      ));
+
+      if (meeting.note) {
+        item.appendChild(element(
+          "p", meeting.note, "muted"
+        ));
+      }
+
+      const actions = element("div", null, "actions");
+
+      actions.appendChild(button("Rediger", () => {
+        editingMeeting = meeting.id;
+
+        $("meetingDate").value = meeting.meeting_date;
+        $("meetingTime").value =
+          meeting.meeting_time?.slice(0, 5) || "";
+        $("meetingPlace").value = meeting.place || "";
+        $("meetingNote").value = meeting.note || "";
+
+        $("meetingFormTitle").textContent = "Rediger møte";
+        $("meetingSubmit").textContent = "Lagre endringer";
+        $("cancelMeeting").classList.remove("hidden");
+
+        $("meetingForm").scrollIntoView({
+          behavior: "smooth"
+        });
+      }));
+
+      actions.appendChild(button(
+        "Slett",
+        async () => {
+          if (!confirm("Slette dette møtet?")) return;
+
+          try {
+            await request(
+              db.from("meetings")
+                .delete()
+                .eq("id", meeting.id)
+            );
+            await refresh();
+          } catch (error) {}
+        },
+        "outline danger"
+      ));
+
+      item.appendChild(actions);
+      area.appendChild(item);
+    });
+  });
+}
+
+function clearMeeting() {
+  editingMeeting = null;
+  $("meetingForm").reset();
+  $("meetingFormTitle").textContent = "Avtal et møte";
+  $("meetingSubmit").textContent = "Legg til møte";
+  $("cancelMeeting").classList.add("hidden");
+}
+
+$("cancelMeeting").onclick = clearMeeting;
+
+$("meetingForm").onsubmit = async event => {
+  event.preventDefault();
+
+  const submit = event.submitter;
+  submit.disabled = true;
+
+  const data = {
+    meeting_date: $("meetingDate").value,
+    meeting_time: $("meetingTime").value || null,
+    place: $("meetingPlace").value.trim(),
+    note: $("meetingNote").value.trim()
+  };
+
+  try {
+    if (editingMeeting) {
+      await request(
+        db.from("meetings")
+          .update(data)
+          .eq("id", editingMeeting)
+      );
+    } else {
+      await request(
+        db.from("meetings").insert(data)
+      );
+    }
+
+    clearMeeting();
+    await refresh();
+    message("Møtet er lagret!");
+  } catch (error) {
+  } finally {
+    submit.disabled = false;
+  }
+};
+
+/* HISTORIKK */
+
+function renderHistory() {
+  const area = $("historyList");
+  area.replaceChildren();
+
+  const history = books
+    .filter(b => b.status === "history")
+    .sort((a, b) =>
+      (b.finished_at || "")
+        .localeCompare(a.finished_at || "")
+    );
+
+  if (!history.length) {
+    area.appendChild(element(
+      "div",
+      "Arkivet er foreløpig tomt.",
+      "empty"
+    ));
+    return;
+  }
+
+  history.forEach(book => {
+    const item = element("div", null, "item");
+
+    append(
+      item,
+      element("div", book.title, "item-title"),
+      element("div",
+        book.author || "Ukjent forfatter",
+        "muted")
+    );
+
+    if (book.finished_at) {
+      item.appendChild(element(
+        "p",
+        "Ferdiglest: " +
+        new Date(book.finished_at)
+          .toLocaleDateString("nb-NO"),
+        "small muted"
+      ));
+    }
+
+    const bookReviews = reviews.filter(
+      r => r.book_id === book.id
+    );
+
+    item.appendChild(element(
+      "div",
+      "Sektens samlede dom: " +
+      scoreText(average(bookReviews)) +
+      " · " + bookReviews.length +
+      " vurderinger · " +
+      stars(average(bookReviews)),
+      "score"
+    ));
+
+    bookReviews.forEach(review => {
+      const box = element("div", null, "review");
+
+      box.appendChild(element(
+        "strong",
+        review.reviewer_name +
+        " · " + stars(review.stars)
+      ));
+
+      if (review.review_text) {
+        box.appendChild(element(
+          "p", review.review_text
+        ));
+      }
+
+      item.appendChild(box);
+    });
+
+    area.appendChild(item);
+  });
+}
+
+/* START NETTSIDEN */
+
+init();
+
 </script>
 </body>
 </html>
