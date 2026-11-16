@@ -625,7 +625,7 @@ function activeTab(id) {
     tab.classList.toggle("active", tab.id === id);
   });
 
-  document.querySelectorAll("nav button").forEach(btn => {
+document.querySelectorAll("#nav button").forEach(btn => {
     btn.classList.toggle(
       "active",
       btn.dataset.tab === id
@@ -635,7 +635,7 @@ function activeTab(id) {
   message("");
 }
 
-document.querySelectorAll("nav button").forEach(btn => {
+document.querySelectorAll("#nav button").forEach(btn => {
   btn.onclick = () => activeTab(btn.dataset.tab);
 });
 
@@ -643,6 +643,7 @@ function authUI() {
   $("authCard").classList.toggle("hidden", !!user);
   $("app").classList.toggle("hidden", !user);
   $("nav").classList.toggle("hidden", !user);
+ $("mobilmeny").classList.toggle("hidden", !user);
   $("memberName").textContent = user?.email || "";
 }
 
@@ -1500,10 +1501,21 @@ init();
   .boksekten-mobilmeny {
     display: none;
   }
-
+.boksekten-mobilmeny.hidden {
+  display: none !important;
+}
   @media (max-width: 700px) {
     .boksekten-mobilmeny {
+         height: auto !important;
+    min-height: 0 !important;
+    align-items: center !important;
       display: flex;
+         width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+    flex-direction: row !important;
+    margin: 0 !important;
+    transform: none !important;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -1539,7 +1551,7 @@ init();
   }
 </style>
 
-<nav class="boksekten-mobilmeny" aria-label="Mobilmeny">
+<nav class="boksekten-mobilmeny hidden" aria-label="Mobilmeny" id="mobilmeny">
   <button type="button" onclick="boksektenNaviger('hjem')">
     <span>⌂</span>Hjem
   </button>
