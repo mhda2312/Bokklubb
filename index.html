@@ -1496,5 +1496,81 @@ function renderHistory() {
 init();
 
 </script>
+<style>
+  .boksekten-mobilmeny {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .boksekten-mobilmeny {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: #263e34;
+      border-top: 1px solid #b99a60;
+      padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
+      justify-content: space-around;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .boksekten-mobilmeny button {
+      background: transparent;
+      border: none;
+      color: #f2ebdf;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 5px 8px;
+      min-width: 60px;
+    }
+
+    .boksekten-mobilmeny button span {
+      display: block;
+      font-size: 23px;
+      margin-bottom: 4px;
+    }
+
+    body {
+      padding-bottom: calc(90px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+
+<nav class="boksekten-mobilmeny" aria-label="Mobilmeny">
+  <button type="button" onclick="boksektenNaviger('hjem')">
+    <span>⌂</span>Hjem
+  </button>
+  <button type="button" onclick="boksektenNaviger('onsker')">
+    <span>📖</span>Bokønsker
+  </button>
+  <button type="button" onclick="boksektenNaviger('moter')">
+    <span>📅</span>Møter
+  </button>
+  <button type="button" onclick="boksektenNaviger('historikk')">
+    <span>📚</span>Historikk
+  </button>
+</nav>
+<script>
+  function boksektenNaviger(side) {
+    const faner = {
+      hjem: "current",
+      onsker: "wishes",
+      moter: "meetings",
+      historikk: "history"
+    };
+
+    const fane = document.querySelector(
+      '#nav button[data-tab="' + faner[side] + '"]'
+    );
+
+    if (fane) {
+      fane.click();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+</script>
 </body>
 </html>
