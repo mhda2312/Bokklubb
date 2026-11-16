@@ -760,13 +760,30 @@ function renderCurrent() {
   const cover = element("div", null, "cover-box");
   const detail = element("div");
 
-  if (current.cover_url &&
-      current.cover_url.startsWith("https://")) {
+
+  if (current.cover_url) {
     const img = element("img");
-    img.src = current.cover_url;
     img.alt = "Bokforside";
     img.style.width = "100%";
+    img.style.borderRadius = "7px";
+
     cover.appendChild(img);
+
+    if (current.cover_url.startsWith("https://")) {
+      img.src = current.cover_url;
+    } else {
+      db.storage
+        .from("book-covers")
+        .createSignedUrl(current.cover_url, 3600)
+        .then(({ data, error }) => {
+          if (error) {
+            console.error("Kunne ikke hente bokforside:", error);
+            return;
+          }
+
+          img.src = data.signedUrl;
+        });
+    }
   } else {
     cover.appendChild(element(
       "div",
@@ -774,6 +791,7 @@ function renderCurrent() {
       "cover-placeholder"
     ));
   }
+
 
   append(
     detail,
@@ -888,6 +906,89 @@ function renderCurrent() {
   };
 
   detail.appendChild(form);
+
+  // Last opp bokforside til Supabase Storage
+  const coverForm = element("div");
+
+  coverForm.appendChild(
+    element("label", "Last opp bokforside")
+  );
+
+  const coverInput = element("input");
+  coverInput.type = "file";
+  coverInput.accept = "image/jpeg,image/png,image/webp";
+
+  const uploadButton = button(
+    "Last opp bokforside",
+    async () => {
+      const file = coverInput.files?.[0];
+
+      if (!file) {
+        message("Velg et bilde først.", true);
+        return;
+      }
+
+      if (!["image/jpeg", "image/png", "image/webp"]
+          .includes(file.type)) {
+        message("Velg et JPG-, PNG- eller WebP-bilde.", true);
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        message("Bildet må være mindre enn 5 MB.", true);
+        return;
+      }
+
+      uploadButton.disabled = true;
+      uploadButton.textContent = "Laster opp ...";
+
+      try {
+        const extension = {
+          "image/jpeg": "jpg",
+          "image/png": "png",
+          "image/webp": "webp"
+        }[file.type];
+
+        const path =
+          current.id + "/" +
+          crypto.randomUUID() + "." + extension;
+
+        const { error: uploadError } =
+          await db.storage
+            .from("book-covers")
+            .upload(path, file, {
+              contentType: file.type
+            });
+
+        if (uploadError) throw uploadError;
+
+        const { error: saveError } =
+          await db.from("books")
+            .update({ cover_url: path })
+            .eq("id", current.id);
+
+        if (saveError) throw saveError;
+
+        await refresh();
+        message("Bokforsiden er lastet opp!");
+      } catch (error) {
+        message(
+          "Kunne ikke laste opp bildet: " +
+          errorText(error),
+          true
+        );
+      } finally {
+        uploadButton.disabled = false;
+        uploadButton.textContent =
+          "Last opp bokforside";
+      }
+    },
+    "primary"
+  );
+
+  coverForm.appendChild(coverInput);
+  coverForm.appendChild(uploadButton);
+  detail.appendChild(coverForm);
 
   const list = element("div");
   list.appendChild(element("h3", "Medlemmenes dommer"));
