@@ -1,0 +1,13 @@
+
+{
+  "name": "Boksekten",
+  "short_name": "Boksekten",
+  "description": "Bokklubben for bøker, dommer og møter.",
+  "start_url": "/Bokklubb/",
+  "scope": "/Bokklubb/",
+  "display": "standalone",
+  "background_color": "#f2ebdf",
+  "theme_color": "#263e34",
+  "lang": "no",
+  "icons": []
+}
